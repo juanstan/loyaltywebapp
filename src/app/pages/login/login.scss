@@ -1,0 +1,92 @@
+ion-content{
+ /* --background: radial-gradient(180% 140% at bottom, #3E9E88 55%, white 45%) !important;*/
+  --background: #002152;
+  height: 100vh!important;
+
+  .content-login {
+    position: relative;
+    h1 {
+      margin-top: 20px;
+      font-size: 28px;
+      text-align: center;
+      color: white;
+      text-transform: uppercase;
+    }
+  }
+
+  .login-logo {
+    position: relative;
+    z-index: 3;
+    padding: 40px 0;
+    text-align: center;
+    color: white;
+    .title-login {
+      font-family: poppins, Arial, sans-serif;
+      font-size: 35.75px;
+      font-weight: 200;
+      letter-spacing: -1.7875px;
+      line-height: 42.9px;
+    }
+  }
+
+  ion-list{
+    --ion-background-color: transparent;
+    ion-item.item {
+      background-color: white;
+      width: 60%;
+      height: 40px;
+      margin: auto;
+      &:first-child {
+        margin-bottom: 15px;
+      }
+      .label {
+        width: 10%;
+        color: rgba(0, 0, 0, 0.6);
+        font-size: 1.2em;
+      }
+      ion-input {
+        --background: white;
+        text-align: center;
+      }
+    }
+  }
+
+  :host ::ng-deep .native-input {
+    --background: white !important;
+    &.sc-ion-input-md:-webkit-autofill {
+      --background: white !important;
+    }
+  }
+
+}
+
+.login-logo img {
+  max-width: 50%;
+}
+
+.list {
+  margin-bottom: 0;
+}
+
+.forgot-your-password {
+  text-align: center;
+  color:white;
+  margin-top:20px;
+  a {
+    color: white;
+  }
+}
+
+.right-reserved {
+  position: absolute;
+  bottom: 8%;
+  width: 100%;
+  color: white;
+  text-align: center;
+}
+
+.error{
+  color: red;
+  text-align: center;
+}
+

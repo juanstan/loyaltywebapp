@@ -1,0 +1,7 @@
+{
+  "name": "myLoyalty",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}

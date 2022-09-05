@@ -1,0 +1,11 @@
+.tabbar {
+  justify-content: center;
+}
+
+.tab-button {
+  max-width: 200px;
+}
+
+::ng-deep ion-tab-button.tab-selected{
+  color: #002152 !important;
+}

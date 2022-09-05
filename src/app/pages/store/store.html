@@ -1,0 +1,120 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button autoHide="false"></ion-menu-button>
+    </ion-buttons>
+    <ion-title class="title-color">Stores
+      <!--<div><img src="assets/img/logo_yalla_rewards_yw.svg" alt="Ionic logo" width="35"></div>-->
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content fullscreen="true">
+  <div class="initial-content-store">
+    <div class="first-line">Online and in stores</div>
+    <div class="second-line">Enjoy all the benefits of Yalla Rewards anytime, anywhere.</div>
+  </div>
+
+  <ion-segment color="primary" [(ngModel)]="location" (ionChange)="segmentChanged($event)" scrollable>
+    <ion-segment-button value="stores" checked>
+      <ion-label>Stores</ion-label>
+<!--      <ion-icon name="stores"></ion-icon>-->
+    </ion-segment-button>
+    <ion-segment-button value="websites">
+      <ion-label>Websites</ion-label>
+<!--      <ion-icon name="website"></ion-icon>-->
+    </ion-segment-button>
+  </ion-segment>
+
+  <div [ngSwitch]="location">
+    <ion-grid *ngSwitchCase="'stores'">
+      <ion-row *ngFor="let business of stores$ | async" class="record-row">
+        <ion-col>
+          <ion-accordion-group *ngIf="business.name">
+            <ion-accordion value="first">
+              <ion-item slot="header" color="light">
+                <div class="header-history">
+                  {{business.name}}
+                </div>
+              </ion-item>
+              <div class="ion-padding" slot="content" *ngFor="let store of business.stores">
+                <div>
+                  <div class="name-store" *ngIf="store.name">
+                    <div class="name">{{store.name}}<br />
+                      <span *ngIf="store.city" class="nobold">{{store.city}}, </span>
+                      <span *ngIf="store.country" class="nobold"> {{store.country}}</span>
+                    </div>
+                    <div class="map"><a [href]="'https://www.google.com/maps/search/?api=1&query='+getGoogleLink(store)">
+                      <!--<img src="assets/img/marker-icon-orange.png" width="12.5" height="20.5" />-->
+                      <ion-icon name="location" class="map-icon"></ion-icon>
+                    </a><span>Open Location</span>
+                    </div>
+                  </div>
+                  <div class="info-rest">
+                    <div *ngIf="store.address1">
+                      <span class="info-column">Address: </span>
+                      <span>{{store.address1}}</span>
+                      <span>{{store.address2}}</span>
+                    </div>
+                    <div *ngIf="store.phone"><span class="info-column">Phone: </span><a href="tel:{{store.phone}}">{{store.phone}}</a></div>
+                    <div *ngIf="store.email"><span class="info-column">Email: </span><a href="mailto:{{store.email}}">{{store.email}}</a></div>
+                  </div>
+                </div>
+              </div>
+            </ion-accordion>
+          </ion-accordion-group>
+        </ion-col>
+      </ion-row>
+      <ion-row *ngFor="let website of websites$ | async" class="record-row">
+        <ion-col>
+          <ion-accordion-group *ngIf="website.key">
+            <ion-accordion value="first">
+              <ion-item slot="header" color="light">
+                <div class="header-history color-site">
+                  {{website.key}}
+                </div>
+              </ion-item>
+              <div class="ion-padding" slot="content" *ngFor="let store of website.value">
+                <div>
+                  <div class="name-store" *ngIf="store.name">{{website.name}}
+                    <a [href]="'https://www.google.com/maps/search/?api=1&query='+getGoogleLink(store)">
+                      <img src="assets/img/marker-icon-orange.png" width="12.5" height="20.5" />
+                    </a>
+                  </div>
+                  <div class="info-rest">
+                    <div>
+                      <span class="info-column">Address: </span>
+                      <span *ngIf="store.address1">{{store.address1}}</span>
+                      <span>{{store.address2}}</span>
+                      <span *ngIf="store.city"><span *ngIf="store.address1">, </span>{{store.city}}</span>
+                      <span *ngIf="store.country"> {{store.country}}</span>
+                    </div>
+                    <div *ngIf="store.phone"><span class="info-column">Phone: </span><a href="tel:{{store.phone}}">{{store.phone}}</a></div>
+                    <div *ngIf="store.email"><span class="info-column">Email: </span><a href="mailto:{{store.email}}">{{store.email}}</a></div>
+                  </div>
+                </div>
+              </div>
+            </ion-accordion>
+          </ion-accordion-group>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+    <ion-grid *ngSwitchCase="'websites'">
+      <ion-row *ngFor="let website of websites$ | async" class="record-row">
+        <ion-col>
+          <ion-card *ngIf="website.name">
+            <ion-card-content class="transparent">
+              <div class="header-website color-site">
+                  <div class="website color-site">{{website.name}}</div>
+              </div>
+              <div class="color-site">{{website.description}}</div>
+              <div class="center btn-website-container">
+                <ion-button target="_blank" class="btn-website" color="ownyellow" size="small" href="http://{{website.domain}}">Visit website</ion-button>
+              </div>
+            </ion-card-content>
+          </ion-card>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </div>
+</ion-content>

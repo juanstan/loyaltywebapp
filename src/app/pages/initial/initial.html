@@ -1,0 +1,109 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button autoHide="false"></ion-menu-button>
+    </ion-buttons>
+    <ion-title class="position-logo-center title-color">Home
+      <!--<div><img src="assets/img/logo_yalla_rewards_yw.svg" alt="Ionic logo" width="35"></div>-->
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="overlay overlay-show">
+  <div class="container">
+    <ion-grid>
+      <ion-row>
+        <ion-col class="center title">
+          {{user?.name}}
+          <qrcode [qrdata]="''+user.id" [width]="256" [errorCorrectionLevel]="'M'"></qrcode>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+
+    <ion-grid *ngIf="(program$ | async) as program">
+      <ion-row>
+        <ion-col>
+          <div class="card">
+            <div class="card-body">
+              <div class="row align-items-center">
+                <div class="col text-center home-points">
+                  <span class="h5  fw-bold">{{program.points_earned + program.points_redeemed}}</span>
+                  <h6 class="text-uppercase text-muted mt-2 m-0 font-11">Available Points</h6>
+                </div><!--end col-->
+              </div> <!-- end row -->
+            </div><!--end card-body-->
+          </div>
+        </ion-col>
+        <ion-col>
+          <div class="card">
+            <div class="card-body">
+              <div class="row align-items-center">
+                <div class="col text-center home-points">
+                  <span class="h5  fw-bold">{{(program.points_balance - program.points_earned) | number}}</span>
+                  <h6 class="text-uppercase text-muted mt-2 m-0 font-11">Balance Points</h6>
+                </div><!--end col-->
+              </div> <!-- end row -->
+            </div><!--end card-body-->
+          </div>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col>
+          <div class="next-purchase">You'll save <span class="amount">{{program.discount_balance}} {{program.symbol}}</span> on your next purchase</div>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+
+    <ion-grid *ngIf="histories$ | async as histories; else indicator" class="history-home ion-no-padding">
+      <ion-row *ngFor="let history of histories" class="record-row ion-no-padding">
+        <ion-col class="ion-no-padding">
+          <ion-card>
+            <ion-card-content>
+              <div class="header-history color-site">
+                <span class="reason" [ngSwitch]="history.event_id">
+                  <span *ngSwitchCase="1">Purchase</span>
+                  <span *ngSwitchCase="2">Cancel Points</span>
+                  <span *ngSwitchCase="3">Redeem Points</span>
+                  <span *ngSwitchCase="4">Signup Points</span>
+                  <span *ngSwitchCase="13">First Purchase</span>
+                  <span *ngSwitchCase="14">Manually Added Points</span>
+                </span>
+                <span class="time right-space"> {{history.updated_at | date:'dd/MM/yyyy @ H:m'}}</span>
+              </div>
+              <div>
+                <span *ngIf="history.location?.name || history.business?.website"><span class="bold">Store:</span> {{history.location?.name || history.business?.website}}</span>
+              </div>
+              <div class="items-container" *ngIf="history.items?.length > 0">
+                <div class="item-title">Items</div>
+                <div *ngFor="let item of history.items">
+                  <span class="item name-product color-site">{{item.name}}</span>
+                  <div class="ion-float-end"><span class="price">{{item.total}}</span><span class="currency right-space">{{checkCurrency(history.currency_id)}}</span></div><br />
+                  <span class="item"><span class="sku-title">sku:</span> {{item.sku}}</span>
+                </div>
+              </div>
+              <div class="shopping-value" *ngIf="history.shopping_value">
+                <span class="bold">Total Spent: </span> <span class="money right-space">{{history.shopping_value || '' }}</span><span class="currency right-space">{{checkCurrency(history.currency_id)}}</span>
+              </div>
+              <div class="shopping-points" *ngIf="history.points">
+                <span class="bold">Points
+                  <span *ngIf="history.event_id === 3"> Redeemed</span>
+                  <span *ngIf="history.event_id !== 3"> Earned</span>:
+                </span> <span class="points">{{history.points}}</span> <span class="points-earned right-space"> Points</span>
+              </div>
+            </ion-card-content>
+          </ion-card>
+        </ion-col>
+      </ion-row>
+      <ion-infinite-scroll threshold="10px" (ionInfinite)="loadData($event)">
+        <ion-infinite-scroll-content
+          loadingSpinner="bubbles"
+          loadingText="Loading more data...">
+        </ion-infinite-scroll-content>
+      </ion-infinite-scroll>
+    </ion-grid>
+  </div>
+
+  <ng-template #indicator>
+    <div class="spinner"><ion-spinner name="bubbles" color="medium"></ion-spinner></div>
+  </ng-template>
+</ion-content>

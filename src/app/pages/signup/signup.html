@@ -1,0 +1,188 @@
+<ion-content>
+  <div class="content-login">
+    <h1 class="title-login">
+      <span>Register</span>
+    </h1>
+  <form [formGroup]="form" (ngSubmit)="onSubmit()">
+    <ion-list>
+      <div class="name-form">
+        <ion-item lines="none" class="item left">
+          <ion-label color="light" position="stacked">First Name</ion-label>
+          <ion-input type="text" formControlName="first_name" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.first_name.errors }" class="ion-text-start">
+          </ion-input>
+        </ion-item>
+        <ion-item lines="none" class="item right">
+          <ion-label color="light" position="stacked">Last Name</ion-label>
+          <ion-input type="text" formControlName="last_name" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.last_name.errors }" class="ion-text-start">
+          </ion-input>
+        </ion-item>
+      </div>
+      <ion-item lines="none">
+        <ion-label color="light" position="stacked">Phone Number</ion-label>
+        <ion-input type="text" formControlName="phone" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.email.errors }" class="ion-text-start">
+        </ion-input>
+      </ion-item>
+      <ion-item lines="none">
+        <ion-label color="light" position="stacked">Email</ion-label>
+        <ion-input type="text" formControlName="email" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.email.errors }" class="ion-text-start">
+        </ion-input>
+      </ion-item>
+      <ion-item lines="none">
+        <ion-label color="light" position="stacked">Date of Birth</ion-label>
+        <ion-input
+          value="{{ f.date_of_birth.value | date: 'dd.MM.yyyy' }}"
+          id="date"
+          class="ion-text-start"
+          [ngClass]="{ 'is-invalid': submitted && f.date_of_birth.errors }"
+        ></ion-input>
+        <ion-popover trigger="date" size="cover">
+          <ng-template>
+            <ion-datetime
+              presentation="date"
+              locale="en-uk"
+              formControlName="date_of_birth"
+              [max]=getTodayUTC()
+              show-default-buttons="true"
+              (ionChange)="getData($event)"
+            ></ion-datetime>
+          </ng-template>
+        </ion-popover>
+      </ion-item>
+      <ion-item lines="none">
+        <ion-label color="light" position="stacked">Gender</ion-label>
+        <ion-select
+          value="{{ f.gender.value}}"
+          okText="Okay"
+          cancelText="Dismiss"
+          formControlName="gender"
+          class="form-control"
+          [ngClass]="{ 'is-invalid': submitted && f.gender.errors }">
+          <ion-select-option value="male" >Male</ion-select-option>
+          <ion-select-option value="female">Female</ion-select-option>
+          <ion-select-option value="other">Other</ion-select-option>
+        </ion-select>
+      </ion-item>
+      <ion-item lines="none">
+        <ion-label color="light" position="stacked">Nationality</ion-label>
+        <ion-select
+          value="{{ f.nationality?.value}}"
+          okText="Okay"
+          cancelText="Dismiss"
+          formControlName="nationality"
+          class="form-control"
+          [ngClass]="{ 'is-invalid': submitted && f.nationality.errors }">
+          <ion-select-option value="{{country.name}}" *ngFor="let country of countries$ | async">{{country.name}}</ion-select-option>
+        </ion-select>
+      </ion-item>
+      <ion-item lines="none">
+        <ion-label color="light" position="stacked">Country</ion-label>
+        <ion-select
+          value="{{ f.country.value}}"
+          okText="Okay"
+          cancelText="Dismiss"
+          formControlName="country"
+          class="form-control"
+          (ionChange)="loadRegion($event)"
+          [ngClass]="{ 'is-invalid': submitted && f.country.errors }">
+          <ion-select-option value="{{country.id}}" *ngFor="let country of countries$ | async">{{country.name}}</ion-select-option>
+        </ion-select>
+      </ion-item>
+      <ion-item lines="none">
+        <ion-label color="light" position="stacked">Region</ion-label>
+        <ion-select
+          value="{{ f.region.value}}"
+          okText="Okay"
+          cancelText="Dismiss"
+          formControlName="region"
+          class="form-control"
+          (ionChange)="loadCity($event)"
+          [ngClass]="{ 'is-invalid': submitted && f.region.errors }">
+          <ion-select-option value="{{region.id}}" *ngFor="let region of regions$ | async">{{region.name}}</ion-select-option>
+        </ion-select>
+      </ion-item>
+      <ion-item lines="none">
+        <ion-label color="light" position="stacked">City</ion-label>
+        <ion-select
+          value="{{ f.city.value}}"
+          okText="Okay"
+          cancelText="Dismiss"
+          formControlName="city"
+          class="form-control"
+          [ngClass]="{ 'is-invalid': submitted && f.city.errors }">
+          <ion-select-option value="{{city.id}}" *ngFor="let city of cities$ | async">{{city.name}}</ion-select-option>
+        </ion-select>
+      </ion-item>
+      <ion-item lines="none">
+        <ion-label color="light" position="stacked">Password</ion-label>
+        <ion-input
+          type="password"
+          formControlName="password"
+          class="form-control"
+          [ngClass]="{ 'is-invalid': submitted && f.password.errors }"
+          class="ion-text-start">
+        </ion-input>
+      </ion-item>
+      <ion-item lines="none">
+        <ion-label color="light" position="stacked">Password Confirmation</ion-label>
+        <ion-input type="password"
+                   formControlName="password_confirmation"
+                   class="form-control"
+                   [ngClass]="{ 'is-invalid': submitted && f.password_confirmation.errors }"
+                   class="ion-text-start">
+        </ion-input>
+      </ion-item>
+    </ion-list>
+
+    <div class="error-container">
+      <div *ngIf="submitted && f.first_name?.errors" class="invalid-feedback">
+        <div *ngIf="f.first_name?.errors?.required">First Name is required</div>
+      </div>
+      <div *ngIf="submitted && f.last_name?.errors" class="invalid-feedback">
+        <div *ngIf="f.last_name?.errors?.required">Last Name is required</div>
+      </div>
+      <div *ngIf="submitted && f.phone?.errors" class="invalid-feedback">
+        <div *ngIf="f.phone?.errors?.required">Phone Number is required</div>
+      </div>
+      <div *ngIf="submitted && f.email?.errors" class="invalid-feedback">
+        <div *ngIf="f.email?.errors?.required">Email is required</div>
+      </div>
+      <div *ngIf="submitted && f.date_of_birth?.errors" class="invalid-feedback">
+        <div *ngIf="f.date_of_birth?.errors?.required">Date of Birth is required</div>
+      </div>
+      <div *ngIf="submitted && f.gender?.errors" class="invalid-feedback">
+        <div *ngIf="f.gender?.errors?.required">Gender is required</div>
+      </div>
+      <div *ngIf="submitted && f.country?.errors" class="invalid-feedback">
+        <div *ngIf="f.country?.errors?.required">Country is required</div>
+      </div>
+      <div *ngIf="submitted && f.region?.errors" class="invalid-feedback">
+        <div *ngIf="f.region?.errors?.required">Region is required</div>
+      </div>
+      <div *ngIf="submitted && f.city?.errors" class="invalid-feedback">
+        <div *ngIf="f.city?.errors?.required">City is required</div>
+      </div>
+      <div *ngIf="submitted && f.password?.errors" class="invalid-feedback">
+        <div>Password is required</div>
+      </div>
+      <div *ngIf="submitted && f.password_confirmation?.errors" class="invalid-feedback">
+        <div>Password confirmation is required</div>
+      </div>
+      <div *ngIf="submitted && form?.errors?.MatchFields" class="invalid-feedback">
+        <div>Password has to be the same in both fields</div>
+      </div>
+    </div>
+
+    <div class="form-btn-login">
+      <ion-button [disabled]="loading" size="small" color="light" (click)="onSubmit()">
+        <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
+        Register
+      </ion-button>
+      <ion-button [disabled]="loading" size="small" color="light" routerLink="/login" class="btn-right">
+        Cancel
+      </ion-button>
+    </div>
+
+  </form>
+    </div>
+
+</ion-content>

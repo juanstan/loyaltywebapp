@@ -1,0 +1,105 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button autoHide="false"></ion-menu-button>
+    </ion-buttons>
+    <ion-title  class="title-color">About</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div class="about-info">
+    <ion-grid>
+      <ion-row>
+        <ion-col>
+          <div class="title">About Yalla Rewards</div>
+          <div class="description">Yalla Rewards is Al Boom Marine’s Loyalty Program that offers discounts and rewards to all our customers, across any of our stores and websites.</div>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col>
+          <div class="title">How it works</div>
+          <div class="description">Every time you make a purchase on any of our Group’s stores or websites, you will collect points automatically, which you can then redeem in exchange for discounts, on any future purchases.</div>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col>
+          <div class="title">Where it’s available</div>
+          <div class="description">Yalla Rewards is available on any stores and websites of the following brands: Beyond The Beach, Beyond The Bike, Rip Curl, Oakley, Giant Bicycles, Seafolly, Tommy Bahama and more… <a [routerLink]="['/app/tabs/store']">See all stores ></a></div>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+
+    <ion-grid>
+      <ion-row>
+        <ion-col class="title">
+          FAQs
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col>
+          <ion-accordion-group>
+            <ion-accordion value="first">
+              <ion-item slot="header" color="light">
+                <div class="header-history color-site title">
+                  WHEN DO MY POINTS EXPIRE?
+                </div>
+              </ion-item>
+              <div class="ion-padding" slot="content">
+                <div>Your points are valid for two years. After this period they will expire.</div>
+              </div>
+            </ion-accordion>
+          </ion-accordion-group>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col>
+          <ion-accordion-group>
+            <ion-accordion value="first">
+              <ion-item slot="header" color="light">
+                <div class="header-history color-site title">
+                  HOW CAN I KEEP TRACK OF MY POINTS?
+                </div>
+              </ion-item>
+              <div class="ion-padding" slot="content">
+                <div>Once you complete your registration, you can login to your account and check your points at any time, under the tab “Points & Rewards”.</div>
+              </div>
+            </ion-accordion>
+          </ion-accordion-group>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col>
+          <ion-accordion-group>
+            <ion-accordion value="first">
+              <ion-item slot="header" color="light">
+                <div class="header-history color-site title">
+                  CAN I USE MY POINTS ON SALES AND SPECIAL OFFERS?
+                </div>
+              </ion-item>
+              <div class="ion-padding" slot="content">
+                <div>Your points can be redeemed when you purchase items at regular prices and they cannot be used cumulatively, on top of special offers and sales.</div>
+              </div>
+            </ion-accordion>
+          </ion-accordion-group>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col>
+          <ion-accordion-group>
+            <ion-accordion value="first">
+              <ion-item slot="header" color="light">
+                <div class="header-history color-site title">
+                  CAN I USE MY POINTS ONLINE AND IN-STORE?
+                </div>
+              </ion-item>
+              <div class="ion-padding" slot="content">
+                <div>Yes, you can earn and redeem points both online and in-store, across the Al Boom Marine’s brands.</div>
+              </div>
+            </ion-accordion>
+          </ion-accordion-group>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </div>
+</ion-content>

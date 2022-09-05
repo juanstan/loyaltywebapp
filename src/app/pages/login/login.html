@@ -1,0 +1,63 @@
+<ion-content class="overlay overlay-show">
+  <div class="login-logo">
+    <img src="assets/img/logo_yalla_rewards_yw.svg" alt="Ionic logo">
+  </div>
+
+  <div class="content-login">
+    <h1 class="title-login">
+      <span>Login</span>
+    </h1>
+    <form [formGroup]="form" (ngSubmit)="onSubmit()">
+      <ion-list>
+        <ion-item lines="none" class="item">
+          <ion-input
+            type="text"
+            placeholder="Username"
+            name="username"
+            formControlName="username"
+            autocomplete="off"
+            [ngClass]="{ 'is-invalid': submitted && f.username.errors }">
+          </ion-input>
+        </ion-item>
+        <ion-item lines="none" class="item">
+          <ion-input
+            type="password"
+            name="password"
+            placeholder="Password"
+            formControlName="password"
+            autocomplete="off"
+            (keypress)="keypress($event)"
+            [ngClass]="{ 'is-invalid': submitted && f.password.errors }">
+          </ion-input>
+        </ion-item>
+        <div *ngIf="submitted && f.username.errors" class="invalid-feedback">
+          <div *ngIf="f.username.errors.required">Username is required</div>
+        </div>
+        <div *ngIf="submitted && f.password.errors" class="invalid-feedback">
+          <div *ngIf="f.password.errors.required">Password is required</div>
+        </div>
+
+        <div *ngIf="loading">
+          <img src="assets/img/loading-icon.gif" width="100" />
+        </div>
+
+        <div class="error" *ngIf="error">({{error}})</div>
+
+        <div class="forgot-your-password">Forgot your passowrd</div>
+        <div class="forgot-your-password">
+          <a routerLink="/register">Sign up</a>
+        </div>
+        <!--<div class="form-btn-login">
+          <button [disabled]="loading" class="btn btn-primary btn-modern">
+            <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
+            Login
+          </button>
+          <a routerLink="../register" class="btn btn-primary btn-modern" >Register</a>
+        </div>-->
+        </ion-list>
+    </form>
+  </div>
+<!--
+  <div class="right-reserved">Bondly all right reserved</div>-->
+
+</ion-content>

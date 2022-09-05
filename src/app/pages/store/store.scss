@@ -1,0 +1,145 @@
+ion-toolbar{
+  --background: #002152;
+  opacity: 1;
+}
+ion-title, ion-menu-button {
+  color: white;
+}
+.color-site{
+  color: #002152;
+}
+.title-color{
+  color: #FECC07;
+  font-weight: bolder;
+  text-transform: uppercase;
+}
+
+.initial-content-store{
+  padding: 20px 10px 10px;
+}
+
+.first-line{
+  font-weight: bolder;
+  font-size: 18px;
+}
+
+ion-segment-button{
+  font-weight: bolder;
+  font-size: 18px;
+  background-color: #FECC07;
+  color: #002152;
+  &.segment-button-checked{
+    background-color: #FECC07;
+  }
+}
+
+.center{
+  text-align: center;
+}
+
+.position-logo-center{
+  margin-left:31%;
+}
+
+.info-rest {
+  font-size: 14px;
+  color: grey;
+  margin-top: 8px;
+  clear: left;
+  a {
+    color: grey;
+    text-decoration: none;
+  }
+}
+
+.info-column {
+  font-weight: bolder;
+}
+
+.name-store{
+  color: #002152;
+  font-size: 16px;
+  font-weight: bolder;
+}
+
+.map {
+  float:right;
+  /*a{
+    vertical-align: text-bottom;
+  }*/
+  span {
+    font-weight: normal;
+  }
+}
+
+.name {
+  float:left;
+}
+
+:host ::ng-deep ion-accordion-group{
+  ion-accordion {
+    ion-item{
+      &::part(native){
+        background-color: #002152;
+      }
+      .header-history{
+        color: white;
+        font-weight: bolder;
+      }
+      ion-icon {
+        &.ion-accordion-toggle-icon {
+          color: white !important;
+        }
+      }
+    }
+  }
+}
+
+ion-icon{
+  &.map-icon{
+    font-size: 17px;
+    color: #FECC07;
+  }
+}
+.nobold{
+  font-weight: normal;
+}
+
+ion-card-content{
+  // background-color: #002152;
+  background: linear-gradient(
+      to bottom,
+      #002152,
+      #002152 2.75rem,
+      transparent 1rem,
+      transparent 100%
+  );
+  color: white;
+  .header-website{
+    padding-bottom: 12px;
+    .business{
+      color: white;
+    }
+    .website{
+      border-bottom: 1px solid #002152;
+      margin-bottom: 5px;
+      padding-bottom: 10px;
+      font-weight: bolder;
+      font-size: 16px;
+    }
+  }
+  &.transparent{
+    background: transparent;
+  }
+}
+
+ion-button {
+  &.btn-website {
+    --ion-background: #FECC07;
+    x-color: #002152;
+  }
+}
+
+.btn-website-container{
+  margin: 10px 0;
+}

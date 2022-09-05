@@ -1,0 +1,26 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title class="title-color">Account</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div *ngIf="user?.email" class="ion-padding-top ion-text-center">
+    <img class="avatar" src="https://www.gravatar.com/avatar?d=mm&s=140" alt="avatar">
+    <h2>{{user.email}}</h2>
+    <ion-list inset>
+      <ion-item>
+        <ion-label color="secondary" position="fixed" class="color-site">Name:</ion-label>
+        {{user.name}}
+      </ion-item>
+      <ion-item>
+        <ion-label color="secondary" position="fixed" class="color-site">Email:</ion-label>
+        {{user.email}}
+      </ion-item>
+      <ion-item (click)="logout()" class="color-site underline">Logout</ion-item>
+    </ion-list>
+  </div>
+</ion-content>

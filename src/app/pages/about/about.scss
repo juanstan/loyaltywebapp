@@ -1,0 +1,44 @@
+ion-toolbar{
+  --background: #002152;
+}
+ion-title, ion-menu-button {
+  color: white;
+}
+
+.title-color{
+  color: #FECC07;
+  font-weight: bolder;
+  text-transform: uppercase;
+}
+
+.center{
+  text-align: center;
+}
+
+.position-logo-center{
+  margin-left:31%;
+}
+
+.title{
+  color: #002152;
+  font-weight: bolder;
+}
+
+:host ::ng-deep ion-accordion-group{
+  ion-accordion {
+    ion-item{
+      &::part(native){
+        background-color: #FECC07;
+      }
+      .header-history{
+        /*color: white;*/
+        font-weight: bolder;
+      }
+      ion-icon {
+        &.ion-accordion-toggle-icon {
+          /*color: white !important;*/
+        }
+      }
+    }
+  }
+}

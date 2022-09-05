@@ -1,0 +1,159 @@
+ion-toolbar{
+  --background: #002152;
+}
+ion-title, ion-menu-button {
+  --color: white;
+}
+
+.title{
+  font-weight: bolder;
+  color: #002152;
+  font-size: 25px;
+}
+
+.title-color{
+  color: #FECC07;
+  font-weight: bolder;
+  text-transform: uppercase;
+}
+
+.currency{
+  padding-left: 2px;
+}
+
+.items-container {
+  padding: 10px 0;
+  border-bottom: 1px #002152 solid;
+  margin-bottom: 11px;
+  .item-title{
+    font-weight: bolder;
+  }
+  .sku-title{
+    text-transform: uppercase;
+  }
+}
+
+.center{
+  text-align: center;
+}
+
+.position-logo-center{
+  // margin-left:31%;
+}
+
+ion-content{
+  --ion-background-color:white;
+  height: 100vh!important;
+  margin: 10px;
+
+  // --background: beige;
+
+  .spinner{
+    text-align:center;
+    transform: scale(3);
+    svg {
+        stroke: #444;
+        fill: #222;
+    }
+  }
+
+  .geo-logo {
+    text-align: center;
+  }
+
+  .header{
+    color: #002152;
+    font-size: 20px;
+  }
+
+  .value{
+    color: #a9a9a9;
+    font-size: 44px;
+    margin-top: 10px;
+  }
+
+  .color-site{
+    color: #002152;
+  }
+
+  .left{
+    float: left;
+  }
+
+  .right{
+    float: right;
+  }
+
+  .record-row{
+    .top-space-item{
+      padding-top: 8px;
+    }
+    .right-space {
+      padding-right: 5px;
+    }
+  }
+
+  ion-card-content{
+    // background-color: #002152;
+    background: linear-gradient(
+        to bottom,
+        #002152,
+        #002152 2.75rem,
+        transparent 1rem,
+        transparent 100%
+    );
+    .header-history{
+      padding-bottom: 12px;
+    }
+  }
+
+  .card {
+    background-color: #FECC07;
+    .home-points {
+      margin: 0;
+      overflow-x: hidden !important;
+      color: #002152;
+      letter-spacing: .1px;
+      line-height: 1.5;
+
+      .h5 {
+        font-size: 32px !important
+      }
+
+      h6 {
+        color: #002152 !important;
+        font-size: 11px;
+      }
+    }
+  }
+
+  .history-home{
+    margin-top: 30px;
+    .reason {
+      font-weight: bolder;
+      font-size:18px;
+      color:white;
+    }
+    .time{
+      color: #fff;
+      float:right;
+    }
+    .bold{
+      font-weight: bolder;
+    }
+  }
+
+  .next-purchase {
+    text-align: center;
+    font-size: 14px;
+    .amount {
+      font-weight: bolder;
+    }
+  }
+
+  .name-product {
+    font-weight: bolder;
+  }
+
+}
+
