@@ -10,7 +10,16 @@ export const environment = {
   user_id: 174*/
   program: 'Yalla Rewards',
   program_id: 2,
-  user_id: 2
+  user_id: 2,
+  firebase: {
+    apiKey: "",
+    authDomain: "",
+    databaseURL: "",
+    projectId: "",
+    storageBucket: "",
+    messagingSenderId: "",
+    appId: ""
+  }
 };
 
 /*

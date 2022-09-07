@@ -57,11 +57,14 @@ export class AppComponent implements OnInit {
 
   }
 
-  initializeApp() { }
+  initializeApp() {
+    this.platform.ready().then(async () => {
+      await this.storageService.init();
+      await this.accountService.init();
+    });
+  }
 
   async checkLoginStatus() {
-    await this.storageService.init();
-    await this.accountService.init();
 
     if (!this.accountService.userValue) {
       return this.router.navigateByUrl('/login');

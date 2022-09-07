@@ -36,11 +36,12 @@ export class AccountService {
   async init(): Promise<LoginResult> {
     return await this.storageService.get('login').then(
       login => {
-        if (!login?.user) {
-          return this.logout();
+        if (login?.user) {
+          /*return this.logout();
+        }*/
+          this.user = login.user;
+          return this.loginObj = login;
         }
-        this.user = login.user;
-        return this.loginObj = login;
       }
     );
   }
