@@ -1,35 +1,30 @@
-<ion-app [class.dark-theme]="dark">
-  <ion-split-pane contentId="main-content" *ngIf="loggedIn; else notLogin">
-    <ion-menu contentId="main-content">
-      <ion-content>
-        <ion-list lines="none">
-          <ion-menu-toggle autoHide="false">
-          </ion-menu-toggle>
-          <ion-menu-toggle autoHide="false" *ngFor="let p of appPages; let i = index">
-            <ion-item [routerLink]="p.url" routerLinkActive="selected" routerDirection="root" detail="false">
-              <ion-icon slot="start" [name]="p.icon + '-outline'"></ion-icon>
-              <ion-label>
-                {{p.title}}
-              </ion-label>
-            </ion-item>
-          </ion-menu-toggle>
-          <ion-menu-toggle autoHide="false">
-            <ion-item button (click)="logout()" detail="false">
-              <ion-icon slot="start" name="log-out"></ion-icon>
-              <ion-label>
-                Logout
-              </ion-label>
-            </ion-item>
-          </ion-menu-toggle>
-        </ion-list>
-      </ion-content>
-    </ion-menu>
-    <alert></alert>
-    <ion-router-outlet id="main-content"></ion-router-outlet>
-  </ion-split-pane>
-
-  <ng-template #notLogin>
-    <ion-router-outlet id="main-content"></ion-router-outlet>
-  </ng-template>
-
-</ion-app>
+<div id="main-wrapper">
+  <ion-app [class.dark-theme]="dark">
+    <ion-split-pane contentId="main-content">
+      <ion-menu contentId="main-content">
+        <ion-content>
+          <ion-list lines="none">
+            <ion-menu-toggle autoHide="false" *ngFor="let p of appPages; let i = index">
+              <ion-item [routerLink]="p?.url" (click)="checkLogout(p.title)" routerLinkActive="selected" routerDirection="root" detail="false">
+                <ion-icon slot="start" [name]="p.icon + '-outline'"></ion-icon>
+                <ion-label>
+                  {{p.title}}
+                </ion-label>
+              </ion-item>
+            </ion-menu-toggle>
+            <ion-menu-toggle autoHide="false">
+              <ion-item button (click)="logout()" detail="false">
+                <ion-icon slot="start" name="log-out"></ion-icon>
+                <ion-label>
+                  Logout
+                </ion-label>
+              </ion-item>
+            </ion-menu-toggle>
+          </ion-list>
+        </ion-content>
+      </ion-menu>
+      <alert></alert>
+      <ion-router-outlet id="main-content"></ion-router-outlet>
+    </ion-split-pane>
+  </ion-app>
+</div>

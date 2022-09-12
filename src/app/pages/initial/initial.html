@@ -3,9 +3,7 @@
     <ion-buttons slot="start">
       <ion-menu-button autoHide="false"></ion-menu-button>
     </ion-buttons>
-    <ion-title class="position-logo-center title-color">Home
-      <!--<div><img src="assets/img/logo_yalla_rewards_yw.svg" alt="Ionic logo" width="35"></div>-->
-    </ion-title>
+    <ion-title class="position-logo-center title-color">Home</ion-title>
   </ion-toolbar>
 </ion-header>
 
@@ -15,7 +13,7 @@
       <ion-row>
         <ion-col class="center title">
           {{user?.name}}
-          <qrcode [qrdata]="''+user.id" [width]="256" [errorCorrectionLevel]="'M'"></qrcode>
+          <qrcode [qrdata]="''+user?.id" [width]="256" [errorCorrectionLevel]="'M'"></qrcode>
         </ion-col>
       </ion-row>
     </ion-grid>
@@ -101,6 +99,11 @@
         </ion-infinite-scroll-content>
       </ion-infinite-scroll>
     </ion-grid>
+  </div>
+
+  <div class="test-push-notifications">
+    <ion-button expand="full" (click)="requestPermission()">Request Permission</ion-button>
+    <ion-button expand="full" (click)="deleteToken()">Delete Token</ion-button>
   </div>
 
   <ng-template #indicator>

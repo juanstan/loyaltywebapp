@@ -1,9 +1,7 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { RouteReuseStrategy } from '@angular/router';
-
 import { IonicModule, IonicRouteStrategy } from '@ionic/angular';
-
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 import { ServiceWorkerModule } from '@angular/service-worker';
@@ -15,6 +13,8 @@ import {JwtInterceptor} from './core/interceptor/jwt.interceptor';
 import {IonicStorageModule} from '@ionic/storage-angular';
 import { Drivers } from '@ionic/storage';
 import { ReactiveFormsModule } from '@angular/forms';
+import {AngularFireModule} from "@angular/fire/compat";
+import {AngularFireMessagingModule} from "@angular/fire/compat/messaging";
 
 @NgModule({
   declarations: [AppComponent, AlertComponent],
@@ -34,7 +34,9 @@ import { ReactiveFormsModule } from '@angular/forms';
       // Register the ServiceWorker as soon as the application is stable
       // or after 30 seconds (whichever comes first).
       registrationStrategy: 'registerWhenStable:30000'
-    })
+    }),
+    AngularFireModule.initializeApp(environment.firebase),
+    AngularFireMessagingModule,
   ],
   providers: [
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },

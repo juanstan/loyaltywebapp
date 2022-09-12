@@ -65,12 +65,12 @@ export class AppComponent implements OnInit {
   }
 
   async checkLoginStatus() {
+    await this.storageService.init();
+    await this.accountService.init();
 
-    if (!this.accountService.userValue) {
+    if (!this.accountService.userValue || !this.checkIfSystemHasToLogoutUser()) {
       return this.router.navigateByUrl('/login');
     }
-
-    this.checkIfSystemHasToLogoutUser();
 
     this.loggedIn = true;
     return await this.accountService.loadAllData().subscribe();
@@ -78,12 +78,14 @@ export class AppComponent implements OnInit {
   }
 
 
-  checkIfSystemHasToLogoutUser() {
+  checkIfSystemHasToLogoutUser(): boolean {
     // @ts-ignore
     const lastLogin = this.accountService?.loginObj?.last_login;
     if (lastLogin && moment().isSameOrAfter(moment(lastLogin).add(4, 'hours'))) {
       this.accountService.logout();
+      return false;
     }
+    return true;
   }
 
 
@@ -96,5 +98,6 @@ export class AppComponent implements OnInit {
   logout() {
     this.accountService.logout();
   }
+
 
 }

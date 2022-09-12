@@ -12,13 +12,13 @@ export const environment = {
   program_id: 2,
   user_id: 2,
   firebase: {
-    apiKey: "",
-    authDomain: "",
-    databaseURL: "",
-    projectId: "",
-    storageBucket: "",
-    messagingSenderId: "",
-    appId: ""
+    apiKey: 'AIzaSyB65xvHpbuYl-_n9T6FKCmaaPen8kp_DEw',
+    authDomain: '',
+    databaseURL: '',
+    projectId: 'loyaltypwa-ee381',
+    storageBucket: '',
+    messagingSenderId: '1067060355766',
+    appId: '1:1067060355766:android:6b02be17ca77954bc7fc17'
   }
 };
 

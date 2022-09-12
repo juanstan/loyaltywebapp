@@ -9,7 +9,8 @@ import {ProgramService} from '../../providers/program.service';
 import {Program} from '../../model/program';
 import {delay, finalize, tap} from 'rxjs/operators';
 import {Currency} from '../../model/currency';
-import { IonInfiniteScroll } from '@ionic/angular';
+import { IonInfiniteScroll, AlertController, ToastController } from '@ionic/angular';
+import {MessagingService} from '../../providers/messaging.service';
 
 @Component({
   selector: 'page-initial',
@@ -29,10 +30,14 @@ export class InitialPage implements OnInit {
   constructor(
     private historyService: HistoryService,
     private accountService: AccountService,
-    private programService: ProgramService
+    private programService: ProgramService,
+    private messagingService: MessagingService,
+    private alertCtrl: AlertController,
+    private toastCtrl: ToastController
   ) {
     this.loaded = false;
     this.user = this.accountService.userValue;
+    this.listenForMessages();
   }
 
   ngOnInit() {
@@ -64,6 +69,49 @@ export class InitialPage implements OnInit {
 
   toggleInfiniteScroll() {
     this.infiniteScroll.disabled = !this.infiniteScroll.disabled;
+  }
+
+  listenForMessages() {
+    this.messagingService.getMessages().subscribe(async (msg: any) => {
+      const alert = await this.alertCtrl.create({
+        header: msg.notification.title,
+        subHeader: msg.notification.body,
+        message: msg.data.info,
+        buttons: ['OK'],
+      });
+
+      await alert.present();
+    });
+  }
+
+  requestPermission() {
+    this.messagingService.requestPermission().subscribe(
+      async token => {
+        const toast = await this.toastCtrl.create({
+          message: 'Got your token',
+          duration: 2000
+        });
+        toast.present();
+      },
+      async (err) => {
+        const alert = await this.alertCtrl.create({
+          header: 'Error',
+          message: err,
+          buttons: ['OK'],
+        });
+
+        await alert.present();
+      }
+    );
+  }
+
+  async deleteToken() {
+    this.messagingService.deleteToken();
+    const toast = await this.toastCtrl.create({
+      message: 'Token removed',
+      duration: 2000
+    });
+    toast.present();
   }
 
 
