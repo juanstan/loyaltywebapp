@@ -124,7 +124,7 @@ export class AccountService {
   }
 
   update(user) {
-    const obj = {
+    let obj = {
       name: user.name,
       gender: user.gender,
       email: user.email,
@@ -134,13 +134,16 @@ export class AccountService {
       region_id: +user.region,
       city_id: +user.city,
       phone: user.phone,
-      password: user.password,
-      password_confirmation: user.password_confirmation,
       program_id: environment.program_id,
       created_by: environment.user_id,
       sendVerification: false,
       active: 0
     };
+
+    if (user.password && user.password_confirmation){
+      obj = { ...{password: user.password}, ...obj};
+    }
+
     return this.http.post(`${environment.apiUrl}/customer/save`, obj);
     /*return this.http.post(`${environment.apiUrl}/users/${id}`, params)
       .pipe(map(x => {
@@ -154,6 +157,17 @@ export class AccountService {
         return x;
       }));*/
   }
+
+
+  saveNotification(token) {
+      const obj = {
+        id: this.user.id,
+        push_token: token,
+      };
+      this.http.put(`${environment.apiUrl}/customer/savetoken`, obj).subscribe();
+  }
+
+
 
   delete(id: string) {
     return this.http.delete(`${environment.apiUrl}/users/${id}`)

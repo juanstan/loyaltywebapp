@@ -84,7 +84,7 @@ export class InitialPage implements OnInit {
     });
   }
 
-  requestPermission() {
+  /*requestPermission() {
     this.messagingService.requestPermission().subscribe(
       async token => {
         const toast = await this.toastCtrl.create({
@@ -112,7 +112,7 @@ export class InitialPage implements OnInit {
       duration: 2000
     });
     toast.present();
-  }
+  }*/
 
 
 }

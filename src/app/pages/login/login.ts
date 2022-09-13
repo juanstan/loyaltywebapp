@@ -4,7 +4,8 @@ import {ActivatedRoute, Router} from '@angular/router';
 import {AccountService} from '../../providers/account.service';
 import { first } from 'rxjs/operators';
 import {AlertService} from '../../shared/services/alert.service';
-import {LoadingController} from '@ionic/angular';
+import {AlertController, LoadingController, ToastController} from '@ionic/angular';
+import {MessagingService} from '../../providers/messaging.service';
 
 
 @Component({
@@ -24,7 +25,10 @@ export class LoginPage implements OnInit {
     private router: Router,
     private accountService: AccountService,
     private alertService: AlertService,
-    private loadingCtrl: LoadingController
+    private loadingCtrl: LoadingController,
+    private messagingService: MessagingService,
+    private alertCtrl: AlertController,
+    private toastCtrl: ToastController
   ) { }
 
   ngOnInit() {
@@ -73,6 +77,7 @@ export class LoginPage implements OnInit {
               this.error = 'Customer no verified';
               return;
             }
+            this.getPushToken();
             this.router.navigateByUrl('/');
           });
         },
@@ -92,6 +97,28 @@ export class LoginPage implements OnInit {
   onSignup() {
     this.router.navigateByUrl('/signup');
 
+  }
+
+
+  getPushToken() {
+    this.messagingService.requestPermission().subscribe()/*.subscribe(
+      async token => {
+        const toast = await this.toastCtrl.create({
+          message: 'Got your token',
+          duration: 2000
+        });
+        toast.present();
+      },
+      async (err) => {
+        const alert = await this.alertCtrl.create({
+          header: 'Error',
+          message: err,
+          buttons: ['OK'],
+        });
+
+        await alert.present();
+      }
+    )*/;
   }
 
 }

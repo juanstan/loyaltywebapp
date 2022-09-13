@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { Router } from '@angular/router';
 import { SwUpdate } from '@angular/service-worker';
-import { MenuController, Platform, ToastController } from '@ionic/angular';
+import {MenuController, Platform, ToastController} from '@ionic/angular';
 import { UserData } from './providers/user-data';
 import {AccountService} from './providers/account.service';
 import {StorageService} from './core/services/storage.service';
