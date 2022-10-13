@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { AngularFireMessaging } from '@angular/fire/compat/messaging';
-import { tap } from 'rxjs/operators';
+import {map, tap} from 'rxjs/operators';
 import {AccountService} from './account.service';
 
 @Injectable({
@@ -16,7 +16,7 @@ export class MessagingService {
 
   requestPermission() {
     return this.afMessaging.requestToken.pipe(
-      tap(token => {
+      map(token => {
         console.log('Store token to server: ', token);
         this.accountService.saveNotification(token);
       })

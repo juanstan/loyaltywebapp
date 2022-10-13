@@ -76,7 +76,7 @@ export class InitialPage implements OnInit {
       const alert = await this.alertCtrl.create({
         header: msg.notification.title,
         subHeader: msg.notification.body,
-        message: msg.data.info,
+        // message: msg.data.info,
         buttons: ['OK'],
       });
 

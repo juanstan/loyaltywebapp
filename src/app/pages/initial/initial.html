@@ -9,14 +9,14 @@
 
 <ion-content class="overlay overlay-show">
   <div class="container">
-    <ion-grid>
+    <!--<ion-grid>
       <ion-row>
         <ion-col class="center title">
           {{user?.name}}
-          <qrcode [qrdata]="''+user?.id" [width]="256" [errorCorrectionLevel]="'M'"></qrcode>
+          <qrcode *ngIf="user?.id" [qrdata]="''+user?.id" [width]="256" [errorCorrectionLevel]="'M'"></qrcode>
         </ion-col>
       </ion-row>
-    </ion-grid>
+    </ion-grid>-->
 
     <ion-grid *ngIf="(program$ | async) as program">
       <ion-row>

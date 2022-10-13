@@ -54,7 +54,6 @@ export class LoginPage implements OnInit {
     this.submitted = true;
     const loading = await this.loadingCtrl.create({
       message: 'Loading...',
-      duration: 3000,
       spinner: 'circles'
     });
     loading.present();
@@ -72,16 +71,16 @@ export class LoginPage implements OnInit {
       .subscribe({
         next: async () => {
           await this.accountService.loadAllData().subscribe((login) => {
-            loading.dismiss();
             if (!login.user.email_verified_at) {
               this.error = 'Customer no verified';
               return;
             }
             this.getPushToken();
-            this.router.navigateByUrl('/');
+            this.router.navigateByUrl('/').then(() => loading.dismiss());
           });
         },
         error: response => {
+          loading.dismiss();
           this.error = 'Username or Password incorrect';
           for (const key in response.error) {
            response.error[key]?.map(item => {
@@ -101,7 +100,7 @@ export class LoginPage implements OnInit {
 
 
   getPushToken() {
-    this.messagingService.requestPermission().subscribe()/*.subscribe(
+    this.messagingService.requestPermission().subscribe();/*.subscribe(
       async token => {
         const toast = await this.toastCtrl.create({
           message: 'Got your token',

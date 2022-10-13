@@ -6,6 +6,8 @@ import { UserData } from './providers/user-data';
 import {AccountService} from './providers/account.service';
 import {StorageService} from './core/services/storage.service';
 import * as moment from 'moment';
+import {Observable} from "rxjs";
+import {BehaviorSubject} from "rxjs/internal/BehaviorSubject";
 
 @Component({
   selector: 'app-root',
@@ -36,7 +38,7 @@ export class AppComponent implements OnInit {
       icon: 'person'
     },
   ];
-  loggedIn = false;
+  loggedIn$ = new BehaviorSubject<boolean>(false);
   dark = false;
 
   constructor(
@@ -53,7 +55,7 @@ export class AppComponent implements OnInit {
   }
 
   async ngOnInit() {
-    await this.checkLoginStatus();
+    await this.checkLoginStatus().then(() => this.loggedIn$.next(true));
 
   }
 
@@ -72,7 +74,6 @@ export class AppComponent implements OnInit {
       return this.router.navigateByUrl('/login');
     }
 
-    this.loggedIn = true;
     return await this.accountService.loadAllData().subscribe();
 
   }

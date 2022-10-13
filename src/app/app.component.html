@@ -1,23 +1,19 @@
-<div id="main-wrapper">
+<div id="main-wrapper">This is the {{loggedIn$ | async | json}} value
   <ion-app [class.dark-theme]="dark">
     <ion-split-pane contentId="main-content">
-      <ion-menu contentId="main-content">
+      <ion-menu contentId="main-content" *ngIf="loggedIn$ | async" >
         <ion-content>
           <ion-list lines="none">
-            <ion-menu-toggle autoHide="false" *ngFor="let p of appPages; let i = index">
+            <ion-menu-toggle *ngFor="let p of appPages; let i = index">
               <ion-item [routerLink]="p?.url" (click)="checkLogout(p.title)" routerLinkActive="selected" routerDirection="root" detail="false">
                 <ion-icon slot="start" [name]="p.icon + '-outline'"></ion-icon>
-                <ion-label>
-                  {{p.title}}
-                </ion-label>
+                <ion-label>{{p.title}}</ion-label>
               </ion-item>
             </ion-menu-toggle>
-            <ion-menu-toggle autoHide="false">
+            <ion-menu-toggle>
               <ion-item button (click)="logout()" detail="false">
                 <ion-icon slot="start" name="log-out"></ion-icon>
-                <ion-label>
-                  Logout
-                </ion-label>
+                <ion-label>Logout</ion-label>
               </ion-item>
             </ion-menu-toggle>
           </ion-list>
