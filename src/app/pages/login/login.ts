@@ -73,6 +73,7 @@ export class LoginPage implements OnInit {
           await this.accountService.loadAllData().subscribe((login) => {
             if (!login.user.email_verified_at) {
               this.error = 'Customer no verified';
+              loading.dismiss();
               return;
             }
             this.getPushToken();
