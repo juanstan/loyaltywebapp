@@ -6,8 +6,7 @@ import { UserData } from './providers/user-data';
 import {AccountService} from './providers/account.service';
 import {StorageService} from './core/services/storage.service';
 import * as moment from 'moment';
-import {Observable} from "rxjs";
-import {BehaviorSubject} from "rxjs/internal/BehaviorSubject";
+import {BehaviorSubject} from 'rxjs/internal/BehaviorSubject';
 
 @Component({
   selector: 'app-root',
