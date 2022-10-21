@@ -161,10 +161,11 @@ export class AccountService {
 
   saveNotification(token) {
       const obj = {
-        id: this.user.id,
+        customer_id: this.user.id,
         push_token: token,
       };
-      this.http.put(`${environment.apiUrl}/customer/savetoken`, obj).subscribe();
+    this.http.post(`${environment.apiUrl}/app/device`, obj).subscribe();
+      // this.http.put(`${environment.apiUrl}/customer/savetoken`, obj).subscribe();
   }
 
 

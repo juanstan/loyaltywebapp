@@ -33,7 +33,7 @@ export class LoginPage implements OnInit {
 
   ngOnInit() {
     if (this.accountService.tokenValue) {
-      this.router.navigateByUrl('/app/tabs/map');
+      this.router.navigateByUrl('/');
       return;
     }
     this.form = this.formBuilder.group({
