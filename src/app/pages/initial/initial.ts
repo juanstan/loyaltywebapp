@@ -77,11 +77,14 @@ export class InitialPage implements OnInit {
         header: msg.notification.title,
         subHeader: msg.notification.body,
         // message: msg.data.info,
-        buttons: ['OK'],
+        buttons: [{
+          text: 'Okay',
+          handler: () => {
+            window.location.reload();
+          }
+        }],
       });
       await alert.present();
-
-      window.location.reload();
     });
   }
 
