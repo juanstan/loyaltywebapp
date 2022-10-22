@@ -5,6 +5,18 @@ ion-title, ion-menu-button {
   --color: white;
 }
 
+.green{
+  color: #002152;
+}
+
+.red{
+  color: #8B0000;
+}
+
+.yellow{
+  color: #FECC07;
+}
+
 .title{
   font-weight: bolder;
   color: #002152;
@@ -51,6 +63,7 @@ ion-content{
   .spinner{
     text-align:center;
     transform: scale(3);
+    margin-top: 50%;
     svg {
         stroke: #444;
         fill: #222;
@@ -93,17 +106,59 @@ ion-content{
     }
   }
 
-  ion-card-content{
-    // background-color: #002152;
-    background: linear-gradient(
-        to bottom,
-        #002152,
-        #002152 2.75rem,
-        transparent 1rem,
-        transparent 100%
-    );
-    .header-history{
-      padding-bottom: 12px;
+  .slider-home{
+    width: 100%;
+    height: 200px;
+    background: #002152;
+    color: white;
+    position: relative;
+    border-radius: 25px;
+    margin-top: 15px;
+    ion-slides{
+      height: 100%;
+      .text-slider{
+        padding:20px;
+      }
+      .text-points{
+        .number{
+          font-weight: bolder;
+          font-size: 36px;
+          padding-right: 10px;
+        }
+      }
+    }
+  }
+
+  ion-card{
+    border-radius: 10px;
+    ion-card-content{
+      .icon-history {
+        margin-top: -8px;
+        float: left;
+        .icon {
+          font-size: 50px;
+        }
+      }
+      .description-history{
+        float: left;
+        margin: 0 0 0 5px;
+        span {
+          font-weight: bolder;
+          color: black;
+        }
+        .time {
+          color: #adb5bd;
+          font-size: 12px;
+        }
+      }
+      .history-points{
+        float:right;
+        text-align: right;
+        .shopping-value{
+          color: #adb5bd;
+          font-size: 12px;
+        }
+      }
     }
   }
 
@@ -154,6 +209,7 @@ ion-content{
   .name-product {
     font-weight: bolder;
   }
+
 
 }
 

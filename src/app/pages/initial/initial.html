@@ -18,8 +18,33 @@
       </ion-row>
     </ion-grid>-->
 
-    <ion-grid *ngIf="(program$ | async) as program">
-      <ion-row>
+    <ion-grid *ngIf="(program$ | async) as program" class="slider-home">
+      <ion-slides pager="true">
+        <ion-slide>
+          <div class="col text-center home-points">
+            <div class="text-slider">Available Points</div>
+            <div class="text-points">
+              <span class="number">{{program.points_earned + program.points_redeemed}}</span><span>pts</span>
+            </div>
+          </div>
+        </ion-slide>
+        <ion-slide>
+          <div class="col text-center home-points">
+            <div class="text-slider">Balance Points</div>
+            <div class="text-points">
+              <span class="number">{{(program.points_balance - program.points_earned) | number}}</span><span>pts</span>
+            </div>
+          </div>
+        </ion-slide>
+        <ion-slide>
+          <div class="next-purchase home-points">
+            <div class="text-points">
+              You'll save<div class="number">{{program.discount_balance | number: '1.2-2' }} {{program.symbol}}</div> on your next purchase
+            </div>
+          </div>
+        </ion-slide>
+      </ion-slides>
+      <!--<ion-row>
         <ion-col>
           <div class="card">
             <div class="card-body">
@@ -27,9 +52,9 @@
                 <div class="col text-center home-points">
                   <span class="h5  fw-bold">{{program.points_earned + program.points_redeemed}}</span>
                   <h6 class="text-uppercase text-muted mt-2 m-0 font-11">Available Points</h6>
-                </div><!--end col-->
-              </div> <!-- end row -->
-            </div><!--end card-body-->
+                </div>&lt;!&ndash;end col&ndash;&gt;
+              </div> &lt;!&ndash; end row &ndash;&gt;
+            </div>&lt;!&ndash;end card-body&ndash;&gt;
           </div>
         </ion-col>
         <ion-col>
@@ -39,9 +64,9 @@
                 <div class="col text-center home-points">
                   <span class="h5  fw-bold">{{(program.points_balance - program.points_earned) | number}}</span>
                   <h6 class="text-uppercase text-muted mt-2 m-0 font-11">Balance Points</h6>
-                </div><!--end col-->
-              </div> <!-- end row -->
-            </div><!--end card-body-->
+                </div>&lt;!&ndash;end col&ndash;&gt;
+              </div> &lt;!&ndash; end row &ndash;&gt;
+            </div>&lt;!&ndash;end card-body&ndash;&gt;
           </div>
         </ion-col>
       </ion-row>
@@ -49,7 +74,7 @@
         <ion-col>
           <div class="next-purchase">You'll save <span class="amount">{{program.discount_balance}} {{program.symbol}}</span> on your next purchase</div>
         </ion-col>
-      </ion-row>
+      </ion-row>-->
     </ion-grid>
 
     <ion-grid *ngIf="histories$ | async as histories; else indicator" class="history-home ion-no-padding">
@@ -57,7 +82,7 @@
         <ion-col class="ion-no-padding">
           <ion-card>
             <ion-card-content>
-              <div class="header-history color-site">
+              <!--<div class="header-history color-site">
                 <span class="reason" [ngSwitch]="history.event_id">
                   <span *ngSwitchCase="1">Purchase</span>
                   <span *ngSwitchCase="2">Cancel Points</span>
@@ -67,8 +92,51 @@
                   <span *ngSwitchCase="14">Manually Added Points</span>
                 </span>
                 <span class="time right-space"> {{history.updated_at | date:'dd/MM/yyyy @ H:m'}}</span>
+              </div>-->
+              <div class="icon-history">
+                <div [ngSwitch]="history.event_id">
+                  <span *ngSwitchCase="1"><ion-icon name="add-circle-sharp" class="icon green"></ion-icon></span>
+                  <span *ngSwitchCase="2"><ion-icon name="close-circle-sharp" class="icon red"></ion-icon></span>
+                  <span *ngSwitchCase="3"><ion-icon name="checkmark-circle-sharp" class="icon yellow"></ion-icon></span>
+                  <span *ngSwitchCase="4"><ion-icon name="add-circle-sharp" class="icon green"></ion-icon></span>
+                  <span *ngSwitchCase="13"><ion-icon name="add-circle-sharp" class="icon green"></ion-icon></span>
+                  <span *ngSwitchCase="14"><ion-icon name="add-circle-sharp" class="icon green"></ion-icon></span>
+                </div>
               </div>
-              <div>
+              <div class="description-history">
+                <div [ngSwitch]="history.event_id">
+                  <span *ngSwitchCase="1">Purchase</span>
+                  <span *ngSwitchCase="2">Cancel Points</span>
+                  <span *ngSwitchCase="3">Redeem Points</span>
+                  <span *ngSwitchCase="4">Signup Points</span>
+                  <span *ngSwitchCase="13">First Purchase</span>
+                  <span *ngSwitchCase="14">Purchase</span>
+                </div>
+                <div class="time right-space"> {{history.updated_at | date:'dd/MM/yyyy @ H:m'}}</div>
+              </div>
+              <div class="history-points" *ngIf="history.points">
+                <div  [ngClass]="{
+                  'green': history.event_id === 1 || history.event_id === 4 || history.event_id === 13 || history.event_id === 14,
+                  'red': history.event_id === 2,
+                  'yellow': history.event_id === 3
+                  }">
+                  <span class="bold">
+                    <span *ngIf="history.event_id !== 3 && history.event_id !== 2">+</span>
+                    <span class="points">{{history.points}}</span>
+                  </span><span class="points-earned right-space"> pts</span>
+                </div>
+                <div class="shopping-value" *ngIf="history.shopping_value">
+                  <span class="money right-space">{{history.shopping_value || '' }}</span><span class="currency right-space">{{checkCurrency(history.currency_id)}}</span>
+                  <span [ngSwitch]="history.event_id">
+                    <span *ngSwitchCase="1">spent</span>
+                    <span *ngSwitchCase="2">cancelled</span>
+                    <span *ngSwitchCase="3">redeemed</span>
+                    <span *ngSwitchCase="4">received</span>
+                    <span *ngSwitchCase="14">spent</span>
+                  </span>
+                </div>
+              </div>
+              <!--<div>
                 <span *ngIf="history.location?.name || history.business?.website"><span class="bold">Store:</span> {{history.location?.name || history.business?.website}}</span>
               </div>
               <div class="items-container" *ngIf="history.items?.length > 0">
@@ -87,7 +155,7 @@
                   <span *ngIf="history.event_id === 3"> Redeemed</span>
                   <span *ngIf="history.event_id !== 3"> Earned</span>:
                 </span> <span class="points">{{history.points}}</span> <span class="points-earned right-space"> Points</span>
-              </div>
+              </div>-->
             </ion-card-content>
           </ion-card>
         </ion-col>
