@@ -1,19 +1,15 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import {HttpClient} from '@angular/common/http';
-import {catchError, first, map, switchMap, take} from 'rxjs/operators';
-
+import {catchError, map, switchMap} from 'rxjs/operators';
 import {environment} from '../../environments/environment';
 import {User} from '../model/user';
 import {LoginResult} from '../model/auth/login-result';
 import {StorageService} from '../core/services/storage.service';
 import {Observable} from 'rxjs';
-import {snapshot} from '../shared/utils/snapshot.util';
 import {HistoryService} from './history.service';
 import * as moment from 'moment';
-import {History} from '../model/history';
 import {ProgramService} from './program.service';
-import {Program} from '../model/program';
 
 
 @Injectable({ providedIn: 'root' })

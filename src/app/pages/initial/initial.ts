@@ -79,8 +79,10 @@ export class InitialPage implements OnInit {
         // message: msg.data.info,
         buttons: ['OK'],
       });
-
       await alert.present();
+
+      this.histories$.subscribe();
+      this.program$.subscribe();
     });
   }
 
