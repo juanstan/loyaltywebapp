@@ -81,8 +81,7 @@ export class InitialPage implements OnInit {
       });
       await alert.present();
 
-      this.histories$.subscribe();
-      this.program$.subscribe();
+      window.location.reload();
     });
   }
 
