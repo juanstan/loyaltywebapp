@@ -116,6 +116,7 @@ ion-content{
     margin-top: 15px;
     ion-slides{
       height: 100%;
+      --bullet-background-active: #FECC07;
       .text-slider{
         padding:20px;
       }
@@ -131,32 +132,50 @@ ion-content{
 
   ion-card{
     border-radius: 10px;
-    ion-card-content{
-      .icon-history {
-        margin-top: -8px;
-        float: left;
-        .icon {
-          font-size: 50px;
+    ion-card-content {
+      ion-accordion {
+        ion-item::part(native) {
+          height: 70px;
+          padding: 0;
+          .item-inner{
+            padding:0;
+          }
         }
-      }
-      .description-history{
-        float: left;
-        margin: 0 0 0 5px;
-        span {
-          font-weight: bolder;
-          color: black;
+        .icon-history {
+          padding: 0 3px;
+          float: left;
+
+          .icon {
+            font-size: 50px;
+          }
         }
-        .time {
-          color: #adb5bd;
-          font-size: 12px;
+        .description-history {
+          float: left;
+          margin: 0 0 0 5px;
+
+          span {
+            font-weight: bolder;
+            color: black;
+          }
+
+          .time {
+            color: #adb5bd;
+            font-size: 12px;
+          }
         }
-      }
-      .history-points{
-        float:right;
-        text-align: right;
-        .shopping-value{
-          color: #adb5bd;
-          font-size: 12px;
+        .history-points {
+          position: absolute;
+          right: 50px;
+          text-align: right;
+
+          .shopping-value {
+            color: #adb5bd;
+            font-size: 12px;
+          }
+        }
+        ion-icon.ion-accordion-toggle-icon{
+          display:none;
+          width:0;
         }
       }
     }
