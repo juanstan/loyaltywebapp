@@ -133,6 +133,7 @@ ion-content{
   ion-card{
     border-radius: 10px;
     ion-card-content {
+      padding: 0 !important;
       ion-accordion {
         ion-item::part(native) {
           height: 70px;
@@ -165,13 +166,16 @@ ion-content{
         }
         .history-points {
           position: absolute;
-          right: 50px;
+          right: 8px;
           text-align: right;
 
           .shopping-value {
             color: #adb5bd;
             font-size: 12px;
           }
+        }
+        .info-rest{
+          padding-left: 10px;
         }
         ion-icon.ion-accordion-toggle-icon{
           display:none;
