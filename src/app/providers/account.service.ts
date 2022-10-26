@@ -188,13 +188,13 @@ export class AccountService {
           switchMap(dataUser => {
             return this.http.post<User>(`${environment.apiUrl}/app/customerbyuser`, {id: dataUser.data.id}).pipe(
               switchMap(dataCustomer => {
-                return this.http.get(`${environment.apiUrl}/app/customer/${dataCustomer.uuid}`).pipe(
+                return this.http.get(`${environment.apiUrl}/app/customer/${dataCustomer.uuid}?historypage=1&historycount=5`).pipe(
                   map((customer: any) => {
                     // @ts-ignore
                     this.loginObj.user = this.userValue = dataCustomer;
                     // If the user is verified we keep his info
                     if (dataCustomer.email_verified_at) {
-                      const programInfo = customer.programs.find((pro: { id: number; }) => pro.id === program.programID);
+                      const programInfo = customer.programs.find((pro: { id: number }) => pro.id === program.programID);
                       this.programService.program$.next(programInfo);
                       this.historyService.allHistories = programInfo?.histories;
                       this.storageService.set('program', programInfo);
