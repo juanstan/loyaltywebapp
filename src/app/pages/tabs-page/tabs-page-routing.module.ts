@@ -27,6 +27,24 @@ const routes: Routes = [
         ]
       },
       {
+        path: 'coupons',
+        children: [
+          {
+            path: '',
+            loadChildren: () => import('../coupons/coupons.module').then(m => m.CouponsModule)
+          }
+        ]
+      },
+      {
+        path: 'offers',
+        children: [
+          {
+            path: '',
+            loadChildren: () => import('../offers/offers.module').then(m => m.OffersModule)
+          }
+        ]
+      },
+      {
         path: 'account',
         children: [
           {

@@ -43,6 +43,7 @@ export class ProgramService {
       map(data => {
         // @ts-ignore
         this.program.id = data.data?.programID;
+        debugger;
         return this.program;
       }),
       catchError((err, caught) => {

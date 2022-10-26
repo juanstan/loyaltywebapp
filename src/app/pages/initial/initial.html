@@ -24,15 +24,15 @@
           <div class="col text-center home-points">
             <div class="text-slider">Available Points</div>
             <div class="text-points">
-              <span class="number">{{program.points_earned + program.points_redeemed}}</span><span>pts</span>
+              <span class="number">{{program.available_points | number:'1.0':'en-US'}}</span><span>pts</span>
             </div>
           </div>
         </ion-slide>
         <ion-slide>
           <div class="col text-center home-points">
-            <div class="text-slider">Balance Points</div>
+            <div class="text-slider">Locked Points</div>
             <div class="text-points">
-              <span class="number">{{(program.points_balance - program.points_earned) | number}}</span><span>pts</span>
+              <span class="number">{{program.locked_points | number:'1.0':'en-US'}}</span><span>pts</span>
             </div>
           </div>
         </ion-slide>
@@ -40,7 +40,7 @@
           <div class="next-purchase home-points">
             <div class="text-points text-slider">
               You'll save<div>
-              <span class="number">{{program.discount_balance | number: '1.2-2' }}</span> {{program.symbol}}</div>
+              <span class="number">{{program.discount_balance | number: '1.2-2' }}</span>{{program.symbol}}</div>
               on your next purchase
             </div>
           </div>
@@ -142,17 +142,23 @@
                       </div>
                     </div>
                   </ion-item>
-                  <ion-item slot="content">
-                    <div class="info-rest">
-                      <div>
-                        <span *ngIf="history.location?.name || history.business?.website"><span class="bold">Store:</span> {{history.location?.name || history.business?.website}}</span>
+                  <div slot="content">
+                      <div *ngIf="history.location?.name || history.business?.website">
+                        <div class="bold">Store:{{history.location?.name || history.business?.website}}</div>
+                        <div> {{history.updated_at | date:'dd/MM/yyyy@H:m'}}</div>
                       </div>
-                      <div class="items-container" *ngIf="history.items?.length > 0">
+                      <br />
+                      <div *ngIf="history.items?.length > 0">
                         <div class="item-title">Items</div>
                         <div *ngFor="let item of history.items">
                           <span class="item name-product color-site">{{item.name}}</span>
-                          <div class="ion-float-end"><span class="price">{{item.total}}</span><span class="currency right-space">{{checkCurrency(history.currency_id)}}</span></div><br />
-                          <span class="item"><span class="sku-title">sku:</span> {{item.sku}}</span>
+                          <div class="ion-float-end">
+                            <span class="price">{{item.total}}</span>
+                            <span class="currency right-space">{{checkCurrency(history.currency_id)}}</span>
+                          </div><br />
+                          <div class="item">
+                            <span class="sku-title">sku:</span> {{item.sku}}
+                          </div>
                         </div>
                       </div>
                       <!--<div class="shopping-value" *ngIf="history.shopping_value">
@@ -164,8 +170,7 @@
                           <span *ngIf="history.event_id !== 3"> Earned</span>:
                         </span> <span class="points">{{history.points}}</span> <span class="points-earned right-space"> Points</span>
                       </div>-->
-                    </div>
-                  </ion-item>
+                  </div>
                 </ion-accordion>
               </ion-accordion-group>
               <!--<div>
