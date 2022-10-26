@@ -17,6 +17,7 @@ export class AccountService {
   public loginObj: null | undefined;
   public user: User | undefined;
   public token: string | undefined;
+  public historycount = 5;
   echo: any = null;
 
   constructor(
@@ -181,14 +182,15 @@ export class AccountService {
     return !!this.tokenValue;
   }
 
-  loadAllData(): Observable<any> {
+  loadAllData(next): Observable<any> {
+    this.historycount += next;
     return this.http.get<{programID: number}>(`${environment.apiUrl}/app/getprogram/${environment.program}`).pipe(
       switchMap(program => {
         return this.http.get<{data: any, status: string}>(`${environment.apiUrl}/auth/user`).pipe(
           switchMap(dataUser => {
             return this.http.post<User>(`${environment.apiUrl}/app/customerbyuser`, {id: dataUser.data.id}).pipe(
               switchMap(dataCustomer => {
-                return this.http.get(`${environment.apiUrl}/app/customer/${dataCustomer.uuid}?historypage=1&historycount=5`).pipe(
+                return this.http.get(`${environment.apiUrl}/app/customer/${dataCustomer.uuid}?historypage=1&historycount=${this.historycount}`).pipe(
                   map((customer: any) => {
                     // @ts-ignore
                     this.loginObj.user = this.userValue = dataCustomer;

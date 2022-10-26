@@ -56,8 +56,7 @@ export class InitialPage implements OnInit {
 
   loadData(event) {
     setTimeout(() => {
-      console.log('Done');
-      event.target.complete();
+      this.accountService.loadAllData(5).subscribe(() => event.target.complete());
 
       // App logic to determine if all data is loaded
       // and disable the infinite scroll

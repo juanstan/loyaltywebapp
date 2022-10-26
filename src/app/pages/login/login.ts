@@ -70,7 +70,7 @@ export class LoginPage implements OnInit {
     this.accountService.login(this.f.username.value, this.f.password.value).pipe(first())
       .subscribe({
         next: async () => {
-          await this.accountService.loadAllData().subscribe((login) => {
+          await this.accountService.loadAllData(0).subscribe((login) => {
             if (!login.user.email_verified_at) {
               this.error = 'Customer no verified';
               loading.dismiss();
