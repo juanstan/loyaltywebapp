@@ -93,7 +93,7 @@ export class AccountPage implements OnInit {
       .pipe(first())
       .subscribe({
         next: async() => {
-          await this.accountService.loadAllData(0).subscribe(() => {
+          await this.accountService.loadAllData().subscribe(() => {
             this.loading = false;
           });
         },

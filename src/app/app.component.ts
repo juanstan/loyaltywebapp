@@ -73,7 +73,7 @@ export class AppComponent implements OnInit {
       return this.router.navigateByUrl('/login');
     }
 
-    return await this.accountService.loadAllData(0).subscribe();
+    return await this.accountService.loadAllData().subscribe();
 
   }
 

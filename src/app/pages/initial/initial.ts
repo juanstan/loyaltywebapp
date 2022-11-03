@@ -7,7 +7,7 @@ import {AccountService} from '../../providers/account.service';
 import {snapshot} from '../../shared/utils/snapshot.util';
 import {ProgramService} from '../../providers/program.service';
 import {Program} from '../../model/program';
-import {delay, finalize, tap} from 'rxjs/operators';
+import {delay, finalize, map, tap} from 'rxjs/operators';
 import {Currency} from '../../model/currency';
 import { IonInfiniteScroll, AlertController, ToastController } from '@ionic/angular';
 import {MessagingService} from '../../providers/messaging.service';
@@ -36,13 +36,20 @@ export class InitialPage implements OnInit {
     private toastCtrl: ToastController
   ) {
     this.loaded = false;
+    this.histories = [];
     this.user = this.accountService.userValue;
     this.listenForMessages();
   }
 
   ngOnInit() {
-    this.histories$ = this.historyService.getHistoriesObservable().pipe(tap(histories => {
-      this.histories = histories;
+    this.histories$ = this.historyService.getHistoriesObservable().pipe(map(histories => {
+     if (histories) {
+       this.histories = [...this.histories, ...histories];
+       if (histories.length === 0) {
+         this.loaded = true;
+       }
+     }
+     return this.histories;
     }));
     this.program$ = this.programService.getProgramObservable().pipe(tap(program => {
       this.currencies = program?.currencies;
@@ -50,20 +57,20 @@ export class InitialPage implements OnInit {
 
   }
 
-  checkCurrency(currency_id) {
-    return this.currencies.find(currency => currency.id === currency_id)?.code;
+  checkCurrency(currencyId) {
+    return this.currencies.find(currency => currency.id === currencyId)?.code;
   }
 
   loadData(event) {
-    setTimeout(() => {
-      this.accountService.loadAllData(5).subscribe(() => event.target.complete());
-
+      this.accountService.loadAllData().subscribe(() => {
+        if (this.loaded) {
+          event.target.disabled = true;
+          return;
+        }
+        event.target.complete();
+      });
       // App logic to determine if all data is loaded
       // and disable the infinite scroll
-      if (this.histories.length === 1000) {
-        event.target.disabled = true;
-      }
-    }, 500);
   }
 
   toggleInfiniteScroll() {
@@ -85,6 +92,10 @@ export class InitialPage implements OnInit {
       });
       await alert.present();
     });
+  }
+
+  trackById(index: number, item: History) {
+    return item.id;
   }
 
   /*requestPermission() {

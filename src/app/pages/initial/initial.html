@@ -80,7 +80,7 @@
     </ion-grid>
 
     <ion-grid *ngIf="histories$ | async as histories; else indicator" class="history-home ion-no-padding">
-      <ion-row *ngFor="let history of histories" class="record-row ion-no-padding">
+      <ion-row *ngFor="let history of histories; trackBy: trackById" class="record-row ion-no-padding">
         <ion-col class="ion-no-padding">
           <ion-card>
             <ion-card-content>
@@ -101,11 +101,15 @@
                     <div class="icon-history">
                       <div [ngSwitch]="history.event_id">
                         <span *ngSwitchCase="1"><ion-icon name="add-circle-sharp" class="icon green"></ion-icon></span>
+                        <!--<span *ngSwitchCase="1"><ion-icon src="assets/icon/purchase-icon.svg" class="icon green"></ion-icon></span>-->
                         <span *ngSwitchCase="2"><ion-icon name="close-circle-sharp" class="icon red"></ion-icon></span>
                         <span *ngSwitchCase="3"><ion-icon name="checkmark-circle-sharp" class="icon yellow"></ion-icon></span>
                         <span *ngSwitchCase="4"><ion-icon name="add-circle-sharp" class="icon green"></ion-icon></span>
                         <span *ngSwitchCase="13"><ion-icon name="add-circle-sharp" class="icon green"></ion-icon></span>
                         <span *ngSwitchCase="14"><ion-icon name="add-circle-sharp" class="icon green"></ion-icon></span>
+                        <!--<span *ngSwitchCase="4"><ion-icon src="assets/icon/purchase-icon.svg" class="icon green"></ion-icon></span>
+                        <span *ngSwitchCase="13"><ion-icon src="assets/icon/purchase-icon.svg" class="icon green"></ion-icon></span>
+                        <span *ngSwitchCase="14"><ion-icon src="assets/icon/purchase-icon.svg" class="icon green"></ion-icon></span>-->
                       </div>
                     </div>
                     <div class="description-history">
