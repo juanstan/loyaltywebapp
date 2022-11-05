@@ -188,6 +188,9 @@ export class AccountService {
       switchMap(program => {
         return this.http.get<{data: any, status: string}>(`${environment.apiUrl}/auth/user`).pipe(
           switchMap(dataUser => {
+            if (!dataUser?.data?.id) {
+              this.logout();
+            }
             return this.http.post<User>(`${environment.apiUrl}/app/customerbyuser`, {id: dataUser.data.id}).pipe(
               switchMap(dataCustomer => {
                 return this.http.get(`${environment.apiUrl}/app/customer/${dataCustomer.uuid}?historypage=${this.historypage++}&historycount=${this.historycount}`).pipe(

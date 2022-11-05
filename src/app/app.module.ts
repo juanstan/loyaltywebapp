@@ -13,8 +13,8 @@ import {JwtInterceptor} from './core/interceptor/jwt.interceptor';
 import {IonicStorageModule} from '@ionic/storage-angular';
 import { Drivers } from '@ionic/storage';
 import { ReactiveFormsModule } from '@angular/forms';
-import {AngularFireModule} from "@angular/fire/compat";
-import {AngularFireMessagingModule} from "@angular/fire/compat/messaging";
+import {AngularFireModule} from '@angular/fire/compat';
+import {AngularFireMessagingModule} from '@angular/fire/compat/messaging';
 
 @NgModule({
   declarations: [AppComponent, AlertComponent],
