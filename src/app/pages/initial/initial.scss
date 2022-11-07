@@ -39,6 +39,7 @@ ion-title, ion-menu-button {
   margin-bottom: 11px;
   .item-title{
     font-weight: bolder;
+    color: #002152;
   }
   .sku-title{
     text-transform: uppercase;
@@ -221,6 +222,12 @@ ion-content{
     }
   }
 
+  .item-title{
+    font-weight: bolder;
+    color: #002152;
+    text-decoration: underline;
+  }
+
   .next-purchase {
     text-align: center;
     font-size: 14px;
@@ -229,8 +236,25 @@ ion-content{
     }
   }
 
-  .name-product {
-    font-weight: bolder;
+  .item-desc{
+    width: 75%;
+    padding: 5px 0;
+    .name-product {
+      font-weight: bolder;
+    }
+  }
+
+  .clearfix{
+    clear: both;
+  }
+
+  .inside-card{
+    padding: 10px;
+    .store {
+      padding: 2px 0;
+      color: #002152;
+    }
+    .time-record { }
   }
 
 

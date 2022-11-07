@@ -146,23 +146,24 @@
                       </div>
                     </div>
                   </ion-item>
-                  <div slot="content">
+                  <div slot="content" class="inside-card">
                       <div *ngIf="history.location?.name || history.business?.website">
-                        <div class="bold">Store:{{history.location?.name || history.business?.website}}</div>
-                        <div> {{history.updated_at | date:'dd/MM/yyyy@H:m'}}</div>
+                        <div class="bold store">Store: {{history.location?.name || history.business?.website}}</div>
+                        <div class="time-record"> {{history.updated_at | date:'dd/MM/yyyy@H:m'}}</div>
                       </div>
                       <br />
                       <div *ngIf="history.items?.length > 0">
                         <div class="item-title">Items</div>
                         <div *ngFor="let item of history.items">
-                          <span class="item name-product color-site">{{item.name}}</span>
+                          <div class="ion-float-start item-desc">
+                            <div class="item name-product color-site">{{item.name}}</div>
+                            <div class="item"><span class="sku-title">sku:</span><span class="sku">{{item.sku}}</span></div>
+                          </div>
                           <div class="ion-float-end">
                             <span class="price">{{item.total}}</span>
                             <span class="currency right-space">{{checkCurrency(history.currency_id)}}</span>
-                          </div><br />
-                          <div class="item">
-                            <span class="sku-title">sku:</span> {{item.sku}}
                           </div>
+                          <br class="clearfix" />
                         </div>
                       </div>
                       <!--<div class="shopping-value" *ngIf="history.shopping_value">
