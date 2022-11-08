@@ -13,6 +13,10 @@ ion-title, ion-menu-button {
   color: #8B0000;
 }
 
+.orange{
+  color: #C6582B;
+}
+
 .yellow{
   color: #FECC07;
 }
@@ -31,6 +35,11 @@ ion-title, ion-menu-button {
 
 .currency{
   padding-left: 2px;
+}
+
+.bespoke-icon{
+  font-size: 44px !important;
+  padding: 0 2px;
 }
 
 .items-container {
@@ -215,7 +224,7 @@ ion-content{
     }
     .time{
       color: #fff;
-      float:right;
+      float:left;
     }
     .bold{
       font-weight: bolder;

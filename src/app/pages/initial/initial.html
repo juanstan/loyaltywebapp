@@ -100,13 +100,19 @@
                   <ion-item slot="header" color="light">
                     <div class="icon-history">
                       <div [ngSwitch]="history.event_id">
-                        <span *ngSwitchCase="1"><ion-icon name="add-circle-sharp" class="icon green"></ion-icon></span>
+                        <!--<span *ngSwitchCase="1"><ion-icon name="add-circle-sharp" class="icon green"></ion-icon></span>-->
                         <!--<span *ngSwitchCase="1"><ion-icon src="assets/icon/purchase-icon.svg" class="icon green"></ion-icon></span>-->
-                        <span *ngSwitchCase="2"><ion-icon name="close-circle-sharp" class="icon red"></ion-icon></span>
-                        <span *ngSwitchCase="3"><ion-icon name="checkmark-circle-sharp" class="icon yellow"></ion-icon></span>
-                        <span *ngSwitchCase="4"><ion-icon name="add-circle-sharp" class="icon green"></ion-icon></span>
-                        <span *ngSwitchCase="13"><ion-icon name="add-circle-sharp" class="icon green"></ion-icon></span>
-                        <span *ngSwitchCase="14"><ion-icon name="add-circle-sharp" class="icon green"></ion-icon></span>
+                        <span *ngSwitchCase="1"><ion-icon src="assets/icon/purchase-icon.svg" class="icon greeen bespoke-icon"></ion-icon></span>
+                        <!--<span *ngSwitchCase="2"><ion-icon name="close-circle-sharp" class="icon red"></ion-icon></span>-->
+                        <span *ngSwitchCase="2"><ion-icon src="assets/icon/return-icon.svg" class="icon orange bespoke-icon"></ion-icon></span>
+                        <!--<span *ngSwitchCase="3"><ion-icon name="checkmark-circle-sharp" class="icon yellow"></ion-icon></span>-->
+                        <span *ngSwitchCase="3"><ion-icon src="assets/icon/redeem-icon.svg" class="icon orange bespoke-icon"></ion-icon></span>
+                        <!--<span *ngSwitchCase="4"><ion-icon name="add-circle-sharp" class="icon green"></ion-icon></span>-->
+                        <span *ngSwitchCase="4"><ion-icon src="assets/icon/signup-icon.svg" class="icon greeen bespoke-icon"></ion-icon></span>
+                        <!--<span *ngSwitchCase="13"><ion-icon name="add-circle-sharp" class="icon green"></ion-icon></span>-->
+                        <span *ngSwitchCase="13"><ion-icon src="assets/icon/firstpurchase-icon.svg" class="icon greeen bespoke-icon"></ion-icon></span>
+                        <!--<span *ngSwitchCase="14"><ion-icon name="add-circle-sharp" class="icon green"></ion-icon></span>-->
+                        <span *ngSwitchCase="14"><ion-icon src="assets/icon/purchase-icon.svg" class="icon greeen bespoke-icon"></ion-icon></span>
                         <!--<span *ngSwitchCase="4"><ion-icon src="assets/icon/purchase-icon.svg" class="icon green"></ion-icon></span>
                         <span *ngSwitchCase="13"><ion-icon src="assets/icon/purchase-icon.svg" class="icon green"></ion-icon></span>
                         <span *ngSwitchCase="14"><ion-icon src="assets/icon/purchase-icon.svg" class="icon green"></ion-icon></span>-->
@@ -123,11 +129,11 @@
                       </div>
                       <div class="time right-space"> {{history.updated_at | date:'dd/MM/yyyy@H:m'}}</div>
                     </div>
-                    <div class="history-points" *ngIf="history.points">
+                    <div class="history-points" *ngIf="history.points!==null">
                       <div  [ngClass]="{
                         'green': history.event_id === 1 || history.event_id === 4 || history.event_id === 13 || history.event_id === 14,
                         'red': history.event_id === 2,
-                        'yellow': history.event_id === 3
+                        'orange': history.event_id === 3
                         }">
                         <span class="bold">
                           <span *ngIf="history.event_id !== 3 && history.event_id !== 2">+</span>
