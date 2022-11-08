@@ -17,7 +17,7 @@ export class AccountService {
   public loginObj: null | undefined;
   public user: User | undefined;
   public token: string | undefined;
-  public historycount = 5;
+  public historycount = 6;
   public historypage = 1;
   echo: any = null;
 

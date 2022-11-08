@@ -42,7 +42,6 @@ export class InitialPage implements OnInit {
 
   ionViewWillEnter() {
     this.loaded = false;
-    this.infiniteScroll.disabled = false;
   }
 
   ngOnInit() {
@@ -71,11 +70,11 @@ export class InitialPage implements OnInit {
   }
 
   loadData(event) {
+    if (this.loaded) {
+      event.target.disabled = true;
+      return;
+    }
       this.accountService.loadAllData().subscribe(() => {
-        if (this.loaded) {
-          event.target.disabled = true;
-          return;
-        }
         event.target.complete();
       });
   }
