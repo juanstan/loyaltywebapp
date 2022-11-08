@@ -35,15 +35,24 @@ export class InitialPage implements OnInit {
     private alertCtrl: AlertController,
     private toastCtrl: ToastController
   ) {
-    this.loaded = false;
     this.histories = [];
     this.user = this.accountService.userValue;
     this.listenForMessages();
   }
 
+  ionViewWillEnter() {
+    this.loaded = false;
+    this.infiniteScroll.disabled = false;
+  }
+
   ngOnInit() {
     this.histories$ = this.historyService.getHistoriesObservable().pipe(map(histories => {
-     if (histories) {
+      this.loaded = false;
+      if (histories === null) {
+        this.histories = [];
+        return this.histories;
+      }
+      if (histories) {
        this.histories = [...this.histories, ...histories];
        if (histories.length === 0) {
          this.loaded = true;
@@ -69,12 +78,6 @@ export class InitialPage implements OnInit {
         }
         event.target.complete();
       });
-      // App logic to determine if all data is loaded
-      // and disable the infinite scroll
-  }
-
-  toggleInfiniteScroll() {
-    this.infiniteScroll.disabled = !this.infiniteScroll.disabled;
   }
 
   listenForMessages() {

@@ -33,7 +33,7 @@ export class LoginPage implements OnInit {
 
   ngOnInit() {
     if (this.accountService.tokenValue) {
-      this.router.navigateByUrl('/');
+      this.router.navigate(['/']);
       return;
     }
     this.form = this.formBuilder.group({
@@ -69,15 +69,21 @@ export class LoginPage implements OnInit {
 
     this.accountService.login(this.f.username.value, this.f.password.value).pipe(first())
       .subscribe({
-        next: async () => {
-          await this.accountService.loadAllData().subscribe((login) => {
-            if (!login.user.email_verified_at) {
+        next: async (data) => {
+          await this.accountService.loadAllData().subscribe((respond) => {
+            if (!respond.programInfo) {
+              this.accountService.logout();
+              this.error = 'Customer does not belong to Yalla program';
+              loading.dismiss();
+              return;
+            }
+            if (!respond.login.user.email_verified_at) {
               this.error = 'Customer no verified';
               loading.dismiss();
               return;
             }
             this.getPushToken();
-            this.router.navigateByUrl('/').then(() => loading.dismiss());
+            this.router.navigate(['/']).then(() => loading.dismiss());
           });
         },
         error: response => {
@@ -95,7 +101,7 @@ export class LoginPage implements OnInit {
   }
 
   onSignup() {
-    this.router.navigateByUrl('/signup');
+    this.router.navigate(['/signup']);
 
   }
 

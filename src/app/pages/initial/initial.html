@@ -132,8 +132,7 @@
                     <div class="history-points" *ngIf="history.points!==null">
                       <div  [ngClass]="{
                         'green': history.event_id === 1 || history.event_id === 4 || history.event_id === 13 || history.event_id === 14,
-                        'red': history.event_id === 2,
-                        'orange': history.event_id === 3
+                        'orange': history.event_id === 3 || history.event_id === 2
                         }">
                         <span class="bold">
                           <span *ngIf="history.event_id !== 3 && history.event_id !== 2">+</span>
@@ -141,7 +140,7 @@
                         </span><span class="points-earned right-space"> pts</span>
                       </div>
                       <div class="shopping-value" *ngIf="history.shopping_value">
-                        <span class="money">{{history.shopping_value || '' }}</span><span class="currency right-space">{{checkCurrency(history.currency_id)}}</span>
+                        <span class="money"><span class="currency right-space">{{checkCurrency(history.currency_id)}}</span>{{(history.shopping_value | number : '1.2-2') || '' }} </span>
                         <span [ngSwitch]="history.event_id">
                           <span *ngSwitchCase="1">spent</span>
                           <span *ngSwitchCase="2">cancelled</span>
@@ -158,6 +157,10 @@
                         <div class="time-record"> {{history.updated_at | date:'dd/MM/yyyy@H:m'}}</div>
                       </div>
                       <br />
+                    <div *ngIf="history.transaction_number">
+                      <div class="bold store">Ref: {{history.transaction_number}}</div>
+                    </div>
+                    <br />
                       <div *ngIf="history.items?.length > 0">
                         <div class="item-title">Items</div>
                         <div *ngFor="let item of history.items">
@@ -166,8 +169,8 @@
                             <div class="item"><span class="sku-title">sku:</span><span class="sku">{{item.sku}}</span></div>
                           </div>
                           <div class="ion-float-end">
-                            <span class="price">{{item.total}}</span>
                             <span class="currency right-space">{{checkCurrency(history.currency_id)}}</span>
+                            <span class="price">{{(item.total | number : '1.2-2') || '' }}</span>
                           </div>
                           <br class="clearfix" />
                         </div>

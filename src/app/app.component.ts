@@ -70,7 +70,7 @@ export class AppComponent implements OnInit {
     await this.accountService.init();
 
     if (!this.accountService.userValue || !this.checkIfSystemHasToLogoutUser()) {
-      return this.router.navigateByUrl('/login');
+      return this.router.navigate(['/login']);
     }
 
     return await this.accountService.loadAllData().subscribe();

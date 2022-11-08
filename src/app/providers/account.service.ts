@@ -47,6 +47,8 @@ export class AccountService {
   public reset() {
     this.loginObj = null;
     this.storageService.clear();
+    this.historypage = 1;
+    this.historyService.resetHistories();
   }
 
   public get userValue(): User {
@@ -195,17 +197,18 @@ export class AccountService {
               switchMap(dataCustomer => {
                 return this.http.get(`${environment.apiUrl}/app/customer/${dataCustomer.uuid}?historypage=${this.historypage++}&historycount=${this.historycount}`).pipe(
                   map((customer: any) => {
+                    let programInfo;
                     // @ts-ignore
                     this.loginObj.user = this.userValue = dataCustomer;
                     // If the user is verified we keep his info
                     if (dataCustomer.email_verified_at) {
-                      const programInfo = customer.programs.find((pro: { id: number }) => pro.id === program.programID);
+                      programInfo = customer.programs.find((pro: { id: number }) => pro.id === program.programID);
                       this.programService.program$.next(programInfo);
                       this.historyService.allHistories = programInfo?.histories;
                       this.storageService.set('program', programInfo);
                       this.storageService.set('login', this.loginObj);
                     }
-                    return this.loginObj;
+                    return {login: this.loginObj, programInfo};
                   })
                 );
               })

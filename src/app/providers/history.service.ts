@@ -42,6 +42,11 @@ export class HistoryService {
     this.histories$.next(histories);
   }
 
+  public resetHistories() {
+    // @ts-ignore
+    this.histories$.next(null);
+  }
+
   public getHistoriesObservable(): Observable<History[]> {
     return this.histories$;
   }

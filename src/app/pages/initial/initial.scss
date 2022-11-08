@@ -96,7 +96,7 @@ ion-content{
   }
 
   .color-site{
-    color: #002152;
+    /*color: #002152;*/
   }
 
   .left{
@@ -233,8 +233,9 @@ ion-content{
 
   .item-title{
     font-weight: bolder;
-    color: #002152;
-    text-decoration: underline;
+    color: black;
+    x-text-decoration: underline;
+    text-transform: uppercase;
   }
 
   .next-purchase {
@@ -261,7 +262,7 @@ ion-content{
     padding: 10px;
     .store {
       padding: 2px 0;
-      color: #002152;
+      color: black;
     }
     .time-record { }
   }
