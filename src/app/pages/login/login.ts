@@ -42,7 +42,7 @@ export class LoginPage implements OnInit {
     });
   }
 
-  get f() { return this.form.controls; }
+  get f() { return this.form?.controls; }
 
   keypress(event) {
     if (event.keyCode === 13) {
