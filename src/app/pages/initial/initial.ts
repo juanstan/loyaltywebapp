@@ -11,6 +11,7 @@ import {delay, finalize, map, tap} from 'rxjs/operators';
 import {Currency} from '../../model/currency';
 import { IonInfiniteScroll, AlertController, ToastController } from '@ionic/angular';
 import {MessagingService} from '../../providers/messaging.service';
+import { IonContent } from '@ionic/angular';
 
 @Component({
   selector: 'page-initial',
@@ -26,6 +27,7 @@ export class InitialPage implements OnInit {
   loaded: boolean;
   histories: History[];
   @ViewChild(IonInfiniteScroll) infiniteScroll: IonInfiniteScroll;
+  @ViewChild(IonContent) content: IonContent;
 
   constructor(
     private historyService: HistoryService,
@@ -42,6 +44,7 @@ export class InitialPage implements OnInit {
 
   ionViewWillEnter() {
     this.loaded = false;
+    this.content.scrollToTop(400);
   }
 
   ngOnInit() {
