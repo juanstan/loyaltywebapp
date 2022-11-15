@@ -2,11 +2,14 @@ ion-toolbar{
   --background: #002152;
   opacity: 1;
 }
+ion-content {
+  --background: #f4f5f8;
+}
 ion-title, ion-menu-button {
   color: white;
 }
 .color-site{
-  color: #002152;
+  color: black;
 }
 .title-color{
   color: #FECC07;
@@ -26,10 +29,15 @@ ion-title, ion-menu-button {
 ion-segment-button{
   font-weight: bolder;
   font-size: 18px;
-  background-color: #FECC07;
-  color: #002152;
+  color: gray;
   &.segment-button-checked{
-    background-color: #FECC07;
+    ion-label {
+      color: black;
+    }
+  }
+  &::part(indicator-background){
+    color: grey !important;
+    background: black;
   }
 }
 
@@ -57,7 +65,7 @@ ion-segment-button{
 }
 
 .name-store{
-  color: #002152;
+  color: black;
   font-size: 16px;
   font-weight: bolder;
 }
@@ -78,17 +86,23 @@ ion-segment-button{
 
 :host ::ng-deep ion-accordion-group{
   ion-accordion {
+    border-radius: 10px;
+    .icon {
+      font-size: 50px;
+    }
     ion-item{
       &::part(native){
-        background-color: #002152;
+        background-color: white;
+        padding:10px;
       }
       .header-history{
-        color: white;
         font-weight: bolder;
+        color: black;
+        padding-left: 20px;
       }
       ion-icon {
         &.ion-accordion-toggle-icon {
-          color: white !important;
+          color: black !important;
         }
       }
     }
@@ -98,7 +112,7 @@ ion-segment-button{
 ion-icon{
   &.map-icon{
     font-size: 17px;
-    color: #FECC07;
+    color: #D10000;
   }
 }
 .nobold{
@@ -121,11 +135,15 @@ ion-card-content{
       color: white;
     }
     .website{
-      border-bottom: 1px solid #002152;
-      margin-bottom: 5px;
-      padding-bottom: 10px;
       font-weight: bolder;
       font-size: 16px;
+      position: absolute;
+      top: 23px;
+      padding-left: 16px;
+      color: black;
+    }
+    ion-icon{
+      font-size: 50px;
     }
   }
   &.transparent{
@@ -135,8 +153,8 @@ ion-card-content{
 
 ion-button {
   &.btn-website {
-    --ion-background: #FECC07;
-    x-color: #002152;
+    --ion-background: black;
+    color: white;
   }
 }
 

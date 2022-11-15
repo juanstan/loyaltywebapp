@@ -12,7 +12,7 @@
 <ion-content fullscreen="true">
   <div class="initial-content-store">
     <div class="first-line">Online and in stores</div>
-    <div class="second-line">Enjoy all the benefits of Yalla Rewards anytime, anywhere.</div>
+    <div class="second-line">Get to know all the stores and websites where you can enjoy all the benefits of Yalla Rewards.</div>
   </div>
 
   <ion-segment color="primary" [(ngModel)]="location" (ionChange)="segmentChanged($event)" scrollable>
@@ -33,6 +33,9 @@
           <ion-accordion-group *ngIf="business.name">
             <ion-accordion value="first">
               <ion-item slot="header" color="light">
+                <span>
+                  <ion-icon src="assets/icon/purchase-icon.svg" class="icon greeen bespoke-icon"></ion-icon>
+                </span>
                 <div class="header-history">
                   {{business.name}}
                 </div>
@@ -47,7 +50,7 @@
                     <div class="map"><a [href]="'https://www.google.com/maps/search/?api=1&query='+getGoogleLink(store)">
                       <!--<img src="assets/img/marker-icon-orange.png" width="12.5" height="20.5" />-->
                       <ion-icon name="location" class="map-icon"></ion-icon>
-                    </a><span>Open Location</span>
+                    </a><span>Location</span>
                     </div>
                   </div>
                   <div class="info-rest">
@@ -105,11 +108,14 @@
           <ion-card *ngIf="website.name">
             <ion-card-content class="transparent">
               <div class="header-website color-site">
-                  <div class="website color-site">{{website.name}}</div>
+                <span>
+                  <ion-icon src="assets/icon/purchase-icon.svg" class="icon greeen bespoke-icon"></ion-icon>
+                </span>
+                <span  class="website color-site">{{website.name}}</span>
               </div>
               <div class="color-site">{{website.description}}</div>
               <div class="center btn-website-container">
-                <ion-button target="_blank" class="btn-website" color="ownyellow" size="small" href="http://{{website.domain}}">Visit website</ion-button>
+                <ion-button target="_blank" class="btn-website" color="black" size="small" href="http://{{website.domain}}">Visit website</ion-button>
               </div>
             </ion-card-content>
           </ion-card>

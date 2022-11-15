@@ -5,6 +5,13 @@
   --ion-color-ownyellow-contrast-rgb: 0,0,0;
   --ion-color-ownyellow-shade: #e0b406;
   --ion-color-ownyellow-tint: #fed120;
+
+  --ion-color-black: #000;
+  --ion-color-black-rgb: 254,204,7;
+  --ion-color-black-contrast: #000000;
+  --ion-color-black-contrast-rgb: 0,0,0;
+  --ion-color-black-shade: #e0b406;
+  --ion-color-black-tint: #fed120;
 }
 
 .ion-color-ownyellow {
@@ -14,4 +21,8 @@
   --ion-color-contrast-rgb: var(--ion-color-ownyellow-contrast-rgb);
   --ion-color-shade: var(--ion-color-ownyellow-shade);
   --ion-color-tint: var(--ion-color-ownyellow-tint);
+}
+
+.ion-color-black {
+  --ion-color-base: var(--ion-color-black);
 }
