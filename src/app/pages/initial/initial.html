@@ -119,14 +119,17 @@
                       </div>
                     </div>
                     <div class="description-history">
-                      <div [ngSwitch]="history.event_id">
+                      <div>
+                        <span>{{history.event.name}}</span>
+                      </div>
+                      <!--<div [ngSwitch]="history.event_id">
                         <span *ngSwitchCase="1">Purchase</span>
                         <span *ngSwitchCase="2">Cancel Points</span>
                         <span *ngSwitchCase="3">Redeem Points</span>
                         <span *ngSwitchCase="4">Signup Points</span>
                         <span *ngSwitchCase="13">First Purchase</span>
                         <span *ngSwitchCase="14">Purchase</span>
-                      </div>
+                      </div>-->
                       <div class="time right-space"> {{history.updated_at | date:'dd/MM/yyyy@H:m'}}</div>
                     </div>
                     <div class="history-points" *ngIf="history.points!==null">
@@ -154,24 +157,21 @@
                   <div slot="content" class="inside-card">
                       <div *ngIf="history.location?.name || history.business?.website">
                         <div class="bold store">Store: {{history.location?.name || history.business?.website}}</div>
-                        <div class="time-record"> {{history.updated_at | date:'dd/MM/yyyy@H:m'}}</div>
+                        <div class="store" *ngIf="history.transaction_number">Ref: {{history.transaction_number}}</div>
                       </div>
-                      <br />
-                    <div *ngIf="history.transaction_number">
-                      <div class="bold store">Ref: {{history.transaction_number}}</div>
-                    </div>
-                    <br />
+                      <hr class="separator-item" />
                       <div *ngIf="history.items?.length > 0">
                         <div class="item-title">Items</div>
-                        <div *ngFor="let item of history.items" class="item-wrapper" [ngClass]="{'red': item.pivot.status === 'cancel' || item.pivot.status === 'refund'}">
+                        <div *ngFor="let item of history.items" class="item-wrapper">
                           <div class="ion-float-start item-desc">
-                            <div class="item name-product color-site">{{item.name}}<span *ngIf="item.quantity"> x {{item.quantity}}</span></div>
+                            <div class="item name-product color-site"><span *ngIf="item.quantity">x{{item.quantity}}</span> {{item.name}}</div>
                             <div class="item"><span class="sku-title">sku:</span><span class="sku">{{item.sku}}</span></div>
-                            <div class="item"><span class="sku-title">status:</span><span class="sku">{{item.pivot.status}}</span></div>
+                            <!--<div class="item"><span class="sku-title">status:</span><span class="sku">{{item.pivot.status}}</span></div>-->
                           </div>
-                          <div class="ion-float-end">
+                          <div class="ion-float-end quantity-status">
                             <span class="currency right-space">{{checkCurrency(history.currency_id)}}</span>
                             <span class="price">{{(item.pivot.total | number : '1.2-2') || '' }}</span>
+                            <div [ngClass]="{'red': item.pivot.status === 'cancel' || item.pivot.status === 'refund'}" *ngIf="(item.pivot.status === 'cancel' || item.pivot.status === 'refund')"><ion-icon name="return-down-back-outline"></ion-icon> Cancelled</div>
                           </div>
                           <br class="clearfix" />
                         </div>

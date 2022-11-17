@@ -246,18 +246,29 @@ ion-content{
     }
   }
 
+  .separator-item{
+    color: black;
+    margin:6px 0 !important;
+  }
+
   .item-wrapper {
     padding: 5px 0;
-    &.red{
+    border-bottom: 1px dotted lightgray;
+    .red{
       color: #D10000 !important;
     }
     .item-desc {
       width: 70%;
+      font-size: 12px;
       .name-product {
         font-weight: bolder;
       }
     }
+    .quantity-status{
+      font-size: 12px;
+    }
   }
+
 
   .clearfix{
     clear: both;
@@ -266,7 +277,7 @@ ion-content{
   .inside-card{
     padding: 10px;
     .store {
-      padding: 2px 0;
+      padding: 2px 0 0 0;
       color: black;
     }
     .time-record { }
