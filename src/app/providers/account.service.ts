@@ -191,7 +191,8 @@ export class AccountService {
         return this.http.get<{data: any, status: string}>(`${environment.apiUrl}/auth/user`).pipe(
           switchMap(dataUser => {
             if (!dataUser?.data?.id) {
-              this.logout();
+               this.logout();
+               return;
             }
             return this.http.post<User>(`${environment.apiUrl}/app/customerbyuser`, {id: dataUser.data.id}).pipe(
               switchMap(dataCustomer => {

@@ -163,14 +163,15 @@
                     <br />
                       <div *ngIf="history.items?.length > 0">
                         <div class="item-title">Items</div>
-                        <div *ngFor="let item of history.items">
+                        <div *ngFor="let item of history.items" class="item-wrapper" [ngClass]="{'red': item.pivot.status === 'cancel' || item.pivot.status === 'refund'}">
                           <div class="ion-float-start item-desc">
-                            <div class="item name-product color-site">{{item.name}}</div>
+                            <div class="item name-product color-site">{{item.name}}<span *ngIf="item.quantity"> x {{item.quantity}}</span></div>
                             <div class="item"><span class="sku-title">sku:</span><span class="sku">{{item.sku}}</span></div>
+                            <div class="item"><span class="sku-title">status:</span><span class="sku">{{item.pivot.status}}</span></div>
                           </div>
                           <div class="ion-float-end">
                             <span class="currency right-space">{{checkCurrency(history.currency_id)}}</span>
-                            <span class="price">{{(item.total | number : '1.2-2') || '' }}</span>
+                            <span class="price">{{(item.pivot.total | number : '1.2-2') || '' }}</span>
                           </div>
                           <br class="clearfix" />
                         </div>

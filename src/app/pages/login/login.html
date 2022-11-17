@@ -16,7 +16,7 @@
             name="username"
             formControlName="username"
             autocomplete="off"
-            [ngClass]="{ 'is-invalid': submitted && f.username.errors }">
+            [ngClass]="{ 'is-invalid': submitted && f?.username.errors }">
           </ion-input>
         </ion-item>
         <ion-item lines="none" class="item">
@@ -27,7 +27,7 @@
             formControlName="password"
             autocomplete="off"
             (keypress)="keypress($event)"
-            [ngClass]="{ 'is-invalid': submitted && f.password.errors }">
+            [ngClass]="{ 'is-invalid': submitted && f?.password.errors }">
           </ion-input>
         </ion-item>
         <div *ngIf="submitted && f.username.errors" class="invalid-feedback">

@@ -246,11 +246,16 @@ ion-content{
     }
   }
 
-  .item-desc{
-    width: 75%;
+  .item-wrapper {
     padding: 5px 0;
-    .name-product {
-      font-weight: bolder;
+    &.red{
+      color: #D10000 !important;
+    }
+    .item-desc {
+      width: 70%;
+      .name-product {
+        font-weight: bolder;
+      }
     }
   }
 
