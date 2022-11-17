@@ -14,6 +14,7 @@ import {Region} from '../../model/region';
 import {CityService} from '../../providers/city.service';
 import {City} from '../../model/city';
 import {FormControlValidators} from '../../shared/utils/form-validators';
+import { IonIntlTelInputValidators } from 'ion-intl-tel-input';
 
 @Component({
   templateUrl: 'signup.html',
@@ -45,7 +46,9 @@ export class SignupComponent implements OnInit {
     this.form = this.formBuilder.group({
       first_name: ['', Validators.required],
       last_name: ['', Validators.required],
-      phone: ['', Validators.required],
+      phone: ['', [
+        Validators.required, IonIntlTelInputValidators.phone
+      ]],
       email: ['', Validators.required],
       gender: ['', Validators.required],
       country: ['', Validators.required],

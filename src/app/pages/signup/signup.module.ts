@@ -5,13 +5,15 @@ import { IonicModule } from '@ionic/angular';
 
 import {SignupComponent} from './signup';
 import { SignupPageRoutingModule } from './signup-routing.module';
+import { IonIntlTelInputModule } from 'ion-intl-tel-input';
 
 @NgModule({
   imports: [
     CommonModule,
     ReactiveFormsModule,
     IonicModule,
-    SignupPageRoutingModule
+    SignupPageRoutingModule,
+    IonIntlTelInputModule
   ],
   declarations: [
     SignupComponent,

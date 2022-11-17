@@ -15,6 +15,8 @@ import { Drivers } from '@ionic/storage';
 import { ReactiveFormsModule } from '@angular/forms';
 import {AngularFireModule} from '@angular/fire/compat';
 import {AngularFireMessagingModule} from '@angular/fire/compat/messaging';
+import {IonIntlTelInputModule} from 'ion-intl-tel-input';
+
 
 @NgModule({
   declarations: [AppComponent, AlertComponent],
@@ -37,6 +39,7 @@ import {AngularFireMessagingModule} from '@angular/fire/compat/messaging';
     }),
     AngularFireModule.initializeApp(environment.firebase),
     AngularFireMessagingModule,
+    IonIntlTelInputModule
   ],
   providers: [
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },

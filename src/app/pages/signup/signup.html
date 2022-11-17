@@ -17,10 +17,14 @@
           </ion-input>
         </ion-item>
       </div>
-      <ion-item lines="none">
+      <!--<ion-item lines="none">
         <ion-label color="light" position="stacked">Phone Number</ion-label>
         <ion-input type="text" formControlName="phone" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.email.errors }" class="ion-text-start">
         </ion-input>
+      </ion-item>-->
+      <ion-item>
+        <ion-label color="light" position="stacked">Phone Number</ion-label>
+        <ion-intl-tel-input formControlName="phone" [ngClass]="{ 'is-invalid': submitted && f.last_name.errors }"></ion-intl-tel-input>
       </ion-item>
       <ion-item lines="none">
         <ion-label color="light" position="stacked">Email</ion-label>
@@ -142,6 +146,7 @@
       </div>
       <div *ngIf="submitted && f.phone?.errors" class="invalid-feedback">
         <div *ngIf="f.phone?.errors?.required">Phone Number is required</div>
+        <div *ngIf="f.phone?.errors?.phone">Phone Number is not valid</div>
       </div>
       <div *ngIf="submitted && f.email?.errors" class="invalid-feedback">
         <div *ngIf="f.email?.errors?.required">Email is required</div>

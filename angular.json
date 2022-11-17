@@ -33,7 +33,11 @@
               "src/combined-sw.js",
               "src/firebase-messaging-sw.js"
             ],
-            "styles": ["src/theme/variables.scss", "src/global.scss"],
+            "styles": [
+              "src/theme/variables.scss",
+              "src/global.scss",
+              { "input": "node_modules/flag-icon-css/sass/flag-icons.scss"}
+            ],
             "scripts": [],
             "aot": false,
             "vendorChunk": true,
