@@ -24,7 +24,12 @@
       </ion-item>-->
       <ion-item>
         <ion-label color="light" position="stacked">Phone Number</ion-label>
-        <ion-intl-tel-input formControlName="phone" [ngClass]="{ 'is-invalid': submitted && f.last_name.errors }"></ion-intl-tel-input>
+        <ion-intl-tel-input
+          [preferredCountries]="preferredCountries"
+          [selectFirstCountry]="selectFirstCountry"
+          [defaultCountryiso]="defaultCountryiso"
+          formControlName="phone"
+          [ngClass]="{ 'is-invalid': submitted && f.last_name.errors }"></ion-intl-tel-input>
       </ion-item>
       <ion-item lines="none">
         <ion-label color="light" position="stacked">Email</ion-label>
