@@ -29,9 +29,11 @@ export class SignupComponent implements OnInit {
   countries$: Observable<Country[]>;
   regions$: Observable<Region[]>;
   cities$: Observable<City[]>;
+
   preferredCountries = ['ae', 'kw', 'qa', 'bh', 'om'];
   selectFirstCountry = true;
   defaultCountryiso = 'ae';
+  // onlyCountries = ['ae', 'kw', 'qa', 'bh', 'om'];
 
   constructor(
     private formBuilder: FormBuilder,

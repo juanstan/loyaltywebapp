@@ -31,18 +31,18 @@ export class LoginPage implements OnInit {
     private toastCtrl: ToastController
   ) { }
 
+  get f() { return this.form?.controls; }
+
   ngOnInit() {
-    if (this.accountService.tokenValue) {
+    /*if (this.accountService.tokenValue) {
       this.router.navigate(['/']);
       return;
-    }
+    }*/
     this.form = this.formBuilder.group({
       username: ['', Validators.required],
       password: ['', Validators.required]
     });
   }
-
-  get f() { return this.form?.controls; }
 
   keypress(event) {
     if (event.keyCode === 13) {
