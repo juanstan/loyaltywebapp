@@ -25,6 +25,7 @@ export class InitialPage implements OnInit {
   user: User;
   currencies: Currency[];
   loaded: boolean;
+  loading: boolean;
   histories: History[];
   @ViewChild(IonInfiniteScroll) infiniteScroll: IonInfiniteScroll;
   @ViewChild(IonContent) content: IonContent;
@@ -44,6 +45,7 @@ export class InitialPage implements OnInit {
 
   ionViewWillEnter() {
     this.loaded = false;
+    this.loading = true;
     this.content.scrollToTop(400);
   }
 
@@ -61,11 +63,12 @@ export class InitialPage implements OnInit {
        }
      }
      return this.histories;
+    }), tap(() => {
+      this.loading = false;
     }));
     this.program$ = this.programService.getProgramObservable().pipe(tap(program => {
       this.currencies = program?.currencies;
     }));
-
   }
 
   checkCurrency(currencyId) {
