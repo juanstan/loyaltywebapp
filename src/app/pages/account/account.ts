@@ -68,7 +68,7 @@ export class AccountPage implements OnInit {
 
   ionViewDidEnter() {
     // @ts-ignore
-    setTimeout(() => this.form.patchValue({country: ['' + this.accountService.userValue.country_id]}), 100);
+    // setTimeout(() => this.form.patchValue({country: ['' + this.accountService.userValue.country_id]}), 100);
   }
 
   // convenience getter for easy access to form fields
