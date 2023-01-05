@@ -71,14 +71,14 @@ export class LoginPage implements OnInit {
       .subscribe({
         next: async (data) => {
           await this.accountService.loadAllData().subscribe((respond) => {
-            if (!respond.programInfo) {
-              this.accountService.logout();
-              this.error = 'Customer does not belong to Yalla program';
+            if (!respond.login.user.email_verified_at) {
+              this.error = 'Customer no verified';
               loading.dismiss();
               return;
             }
-            if (!respond.login.user.email_verified_at) {
-              this.error = 'Customer no verified';
+            if (!respond.programInfo) {
+              this.accountService.logout();
+              this.error = 'Customer does not belong to Yalla program';
               loading.dismiss();
               return;
             }
