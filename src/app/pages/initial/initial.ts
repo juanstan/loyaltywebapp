@@ -44,12 +44,12 @@ export class InitialPage implements OnInit {
   }
 
   ionViewWillEnter() {
-    this.loaded = false;
-    this.loading = true;
     this.content.scrollToTop(400);
   }
 
   ngOnInit() {
+    this.loaded = false;
+    this.loading = true;
     this.histories$ = this.historyService.getHistoriesObservable().pipe(map(histories => {
       this.loaded = false;
       if (histories === null) {
@@ -60,11 +60,14 @@ export class InitialPage implements OnInit {
        this.histories = [...this.histories, ...histories];
        if (histories.length === 0) {
          this.loaded = true;
+         this.loading = false;
        }
      }
      return this.histories;
-    }), tap(() => {
-      this.loading = false;
+    }), tap((val) => {
+      if (val.length > 0) {
+        this.loading = false;
+      }
     }));
     this.program$ = this.programService.getProgramObservable().pipe(tap(program => {
       this.currencies = program?.currencies;
