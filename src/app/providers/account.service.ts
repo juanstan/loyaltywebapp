@@ -104,11 +104,12 @@ export class AccountService {
       country_id: +user.country,
       region_id: +user.region,
       city_id: +user.city,
-      phone: user.phone,
+      phone: user.phone?.internationalNumber,
       password: user.password,
       password_confirmation: user.password_confirmation,
       program_id: environment.program_id,
       created_by: environment.user_id,
+      sendVerification: true,
       active: 0
     };
 
