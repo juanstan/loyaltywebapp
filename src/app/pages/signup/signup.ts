@@ -33,6 +33,7 @@ export class SignupComponent implements OnInit {
   preferredCountries = ['ae', 'kw', 'qa', 'bh', 'om'];
   selectFirstCountry = true;
   defaultCountryiso = 'ae';
+  userexists: boolean;
   // onlyCountries = ['ae', 'kw', 'qa', 'bh', 'om'];
 
   constructor(
@@ -44,7 +45,7 @@ export class SignupComponent implements OnInit {
     private countryService: CountryService,
     private regionService: RegionService,
     private cityService: CityService
-  ) { }
+  ) {}
 
   ngOnInit() {
     this.submitted = false;
@@ -79,6 +80,7 @@ export class SignupComponent implements OnInit {
 
   onSubmit() {
     this.submitted = true;
+    this.userexists = false;
 
     // reset alerts on submit
     this.alertService.clear();
@@ -92,7 +94,12 @@ export class SignupComponent implements OnInit {
     this.accountService.register(this.form.value)
       .pipe(first())
       .subscribe({
-        next: () => {
+        next: (data: any) => {
+          if (data.status === 'error') {
+            this.userexists = true;
+            this.loading = false;
+            return;
+          }
           this.alertService.success('Registration successful', { keepAfterRouteChange: true });
           this.router.navigate(['../verify'], { relativeTo: this.route });
         },

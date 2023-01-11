@@ -180,6 +180,9 @@
       <div *ngIf="submitted && form?.errors?.MatchFields" class="invalid-feedback">
         <div>Password has to be the same in both fields</div>
       </div>
+      <div *ngIf="submitted && userexists" class="invalid-feedback">
+        <div>This email is already registered</div>
+      </div>
     </div>
 
     <div class="form-btn-login">
