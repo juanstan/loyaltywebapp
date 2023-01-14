@@ -188,36 +188,33 @@ export class AccountService {
 
   loadAllData(): Observable<any> {
     return this.http.get<{programID: number}>(`${environment.apiUrl}/app/getprogram/${environment.program}`).pipe(
-      switchMap(program => {
-        return this.http.get<{data: any, status: string}>(`${environment.apiUrl}/auth/user`).pipe(
-          switchMap(dataUser => {
-            if (!dataUser?.data?.id) {
-               this.logout();
-               return;
-            }
-            return this.http.post<User>(`${environment.apiUrl}/app/customerbyuser`, {id: dataUser.data.id}).pipe(
-              switchMap(dataCustomer => {
-                return this.http.get(`${environment.apiUrl}/app/customer/${dataCustomer.uuid}?historypage=${this.historypage++}&historycount=${this.historycount}`).pipe(
-                  map((customer: any) => {
-                    let programInfo;
-                    // @ts-ignore
-                    this.loginObj.user = this.userValue = dataCustomer;
-                    // If the user is verified we keep his info
-                    if (dataCustomer.email_verified_at) {
-                      programInfo = customer.programs.find((pro: { id: number }) => pro.id === program.programID);
-                      this.programService.program$.next(programInfo);
-                      this.historyService.allHistories = programInfo?.histories;
-                      this.storageService.set('program', programInfo);
-                      this.storageService.set('login', this.loginObj);
-                    }
-                    return {login: this.loginObj, programInfo};
-                  })
-                );
-              })
-            );
-          })
-        );
-      }),
+      switchMap(program => this.http.get<{data: any, status: string}>(`${environment.apiUrl}/auth/user`).pipe(
+        switchMap(dataUser => {
+          if (!dataUser?.data?.id) {
+             this.logout();
+             return;
+          }
+          return this.http.post<User>(`${environment.apiUrl}/app/customerbyuser`, {id: dataUser.data.id}).pipe(
+            // eslint-disable-next-line max-len
+            switchMap(dataCustomer => this.http.get(`${environment.apiUrl}/app/customer/${dataCustomer.uuid}?historypage=${this.historypage++}&historycount=${this.historycount}`).pipe(
+                map((customer: any) => {
+                  let programInfo;
+                  // @ts-ignore
+                  this.loginObj.user = this.userValue = dataCustomer;
+                  // If the user is verified we keep his info
+                  if (dataCustomer.email_verified_at) {
+                    programInfo = customer.programs.find((pro: { id: number }) => pro.id === program.programID);
+                    this.programService.program$.next(programInfo);
+                    this.historyService.allHistories = programInfo?.histories;
+                    this.storageService.set('program', programInfo);
+                    this.storageService.set('login', this.loginObj);
+                  }
+                  return {login: this.loginObj, programInfo};
+                })
+              ))
+          );
+        })
+      )),
     catchError(error => {
       console.error('An error occurred: ', error);
       // if you want to handle this error and return some empty data use:
@@ -225,5 +222,22 @@ export class AccountService {
     }));
 
   }
+
+  checkIfUserExistInProgram(): Observable<boolean> {
+    return this.http.get<User>(`${environment.apiUrl}/app/customer/${this.userValue.id}`).pipe(
+      map((customer: any) => (
+        customer &&
+        customer.programs.include(program => program.id === environment.program_id))
+    ));
+  }
+
+  sendVerificationCode(): Observable<string> {
+    return this.http.post<User>(`${environment.apiUrl}/app/sendcodecustomer`, {
+      customerId: this.userValue.id,
+      programId: environment.program_id
+    }).pipe(
+      map((customer: any) => customer.verification_email_code));
+  }
+
 
 }
