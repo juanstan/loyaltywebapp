@@ -10,6 +10,7 @@ import {Observable} from 'rxjs';
 import {HistoryService} from './history.service';
 import * as moment from 'moment';
 import {ProgramService} from './program.service';
+import {Program} from "../model/program";
 
 
 @Injectable({ providedIn: 'root' })
@@ -223,20 +224,36 @@ export class AccountService {
 
   }
 
-  checkIfUserExistInProgram(): Observable<boolean> {
-    return this.http.get<User>(`${environment.apiUrl}/app/customer/${this.userValue.id}`).pipe(
-      map((customer: any) => (
-        customer &&
-        customer.programs.include(program => program.id === environment.program_id))
+  checkIfUserExistInProgram(email): Observable<{customers: User; programs: Program[]}> {
+    return this.http.get<any>(`${environment.apiUrl}/customer/checkemail/${email}`).pipe(
+      map((data) => (
+        data?.customers &&
+        data?.programs?.filter(program => program.id === environment.program_id) ? data : null)
     ));
   }
 
-  sendVerificationCode(): Observable<string> {
-    return this.http.post<User>(`${environment.apiUrl}/app/sendcodecustomer`, {
-      customerId: this.userValue.id,
+  sendVerificationCode(customerObj): Observable<any> {
+    return this.http.post<User>(`${environment.apiUrl}/sendcodecustomer`, {
+      customerId: customerObj.id,
       programId: environment.program_id
-    }).pipe(
-      map((customer: any) => customer.verification_email_code));
+    });
+  }
+
+  verifyCodeForgotPassword(code, customerId): Observable<any> {
+    return this.http.post<User>(`${environment.apiUrl}/verifycodecustomer`, {
+      customerId,
+      programId: environment.program_id,
+      code
+    });
+  }
+
+  changePassword(newpassword, code, customerId): Observable<any> {
+    return this.http.post<User>(`${environment.apiUrl}/changepassword`, {
+      customerId,
+      programId: environment.program_id,
+      code,
+      newpassword
+    });
   }
 
 

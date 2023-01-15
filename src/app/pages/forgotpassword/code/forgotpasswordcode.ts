@@ -1,6 +1,8 @@
 import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, NgForm, Validators} from '@angular/forms';
 import {AccountService} from '../../../providers/account.service';
+import {StorageService} from '../../../core/services/storage.service';
+import {Router} from '@angular/router';
 
 
 @Component({
@@ -13,10 +15,13 @@ export class ForgotPasswordCodePage  implements OnInit {
   supportMessage: string;
   loading: boolean;
   form: FormGroup;
+  error: string;
 
   constructor(
     private formBuilder: FormBuilder,
-    private accountService: AccountService
+    private accountService: AccountService,
+    private router: Router,
+    private storageService: StorageService
   ) { }
 
   ngOnInit() {
@@ -40,9 +45,17 @@ export class ForgotPasswordCodePage  implements OnInit {
     }
 
     if (this.form.valid) {
+      const customerId = await this.storageService.get('tmpUserId');
       this.supportMessage = '';
       this.submitted = false;
-
+      this.accountService.verifyCodeForgotPassword(this.form.value.code, customerId).subscribe(response => {
+        if (response){
+          this.router.navigate(['/forgotpassword/newpassword', {code: response.code}]);
+        } else {
+          this.error = 'code does not match';
+          this.loading = false;
+        }
+      }, () => this.loading = false);
     }
 
     this.loading = true;
