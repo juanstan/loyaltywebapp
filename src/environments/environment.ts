@@ -10,9 +10,9 @@ export const environment = {
   program: 'Yalla Rewards',
   program_id: 2,
   user_id: 2,*/
-  program: 'Yalla',
-  program_id: 31,
-  user_id: 174,
+  program: 'Yalla Rewards',
+  program_id: 37,
+  user_id: 194,
   firebase: {
     apiKey: 'AIzaSyB65xvHpbuYl-_n9T6FKCmaaPen8kp_DEw',
     authDomain: '',
