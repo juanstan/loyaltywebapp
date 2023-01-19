@@ -108,9 +108,8 @@
                         <!--<span *ngSwitchCase="4"><ion-icon name="add-circle-sharp" class="icon green"></ion-icon></span>-->
                         <span *ngSwitchCase="4"><ion-icon src="assets/icon/signup-icon.svg" class="icon greeen bespoke-icon"></ion-icon></span>
                         <!--<span *ngSwitchCase="13"><ion-icon name="add-circle-sharp" class="icon green"></ion-icon></span>-->
-                        <span *ngSwitchCase="13"><ion-icon src="assets/icon/firstpurchase-icon.svg" class="icon greeen bespoke-icon"></ion-icon></span>
+                        <span *ngSwitchCase="5"><ion-icon src="assets/icon/firstpurchase-icon.svg" class="icon greeen bespoke-icon"></ion-icon></span>
                         <!--<span *ngSwitchCase="14"><ion-icon name="add-circle-sharp" class="icon green"></ion-icon></span>-->
-                        <span *ngSwitchCase="14"><ion-icon src="assets/icon/purchase-icon.svg" class="icon greeen bespoke-icon"></ion-icon></span>
                         <!--<span *ngSwitchCase="4"><ion-icon src="assets/icon/purchase-icon.svg" class="icon green"></ion-icon></span>
                         <span *ngSwitchCase="13"><ion-icon src="assets/icon/purchase-icon.svg" class="icon green"></ion-icon></span>
                         <span *ngSwitchCase="14"><ion-icon src="assets/icon/purchase-icon.svg" class="icon green"></ion-icon></span>-->
@@ -132,7 +131,7 @@
                     </div>
                     <div class="history-points" *ngIf="history.points!==null">
                       <div  [ngClass]="{
-                        'green': history.event_id === 1 || history.event_id === 4 || history.event_id === 13 || history.event_id === 14,
+                        'green': history.event_id === 1 || history.event_id === 4 || history.event_id === 5,
                         'orange': history.event_id === 3 || history.event_id === 2
                         }">
                         <span class="bold">
@@ -147,7 +146,7 @@
                           <span *ngSwitchCase="2">cancelled</span>
                           <span *ngSwitchCase="3">redeemed</span>
                           <span *ngSwitchCase="4">received</span>
-                          <span *ngSwitchCase="14">spent</span>
+                          <span *ngSwitchCase="5">spent</span>
                         </span>
                       </div>
                     </div>

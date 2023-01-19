@@ -172,7 +172,16 @@
         <div *ngIf="f.city?.errors?.required">City is required</div>
       </div>
       <div *ngIf="submitted && f.password?.errors" class="invalid-feedback">
-        <div>Password is required</div>
+        <div *ngIf="f.password?.errors?.required">Password is required</div>
+        <div *ngIf="f.password?.errors?.pattern">Please provide a valid password:<br />
+          <ul>
+            <li>Minimum eight characters</li>
+            <li>at least one uppercase letter</li>
+            <li>one lowercase letter</li>
+            <li>one number</li>
+            <li>and one special character</li>
+          </ul>
+        </div>
       </div>
       <div *ngIf="submitted && f.password_confirmation?.errors" class="invalid-feedback">
         <div>Password confirmation is required</div>

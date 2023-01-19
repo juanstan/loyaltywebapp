@@ -35,7 +35,8 @@ export class ForgotPasswordNewPasswordPage  implements OnInit {
     this.loading = false;
     this.error = '';
     this.form = this.formBuilder.group({
-        newpassword: ['', Validators.required],
+        // eslint-disable-next-line max-len
+        newpassword: ['', [Validators.required, Validators.pattern('^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%*?&])[A-Za-z\\d@$!%*?&]{8,}$')]],
         newpasswordrepeat: ['', Validators.required],
     },
   {
@@ -73,6 +74,10 @@ export class ForgotPasswordNewPasswordPage  implements OnInit {
     }
 
     this.loading = true;
+  }
+
+  gotToLogin() {
+    this.router.navigate(['/login']);
   }
 
 }

@@ -49,7 +49,7 @@ export class ForgotPasswordCodePage  implements OnInit {
       this.supportMessage = '';
       this.submitted = false;
       this.accountService.verifyCodeForgotPassword(this.form.value.code, customerId).subscribe(response => {
-        if (response){
+        if (response.status==='success'){
           this.router.navigate(['/forgotpassword/newpassword', {code: response.code}]);
         } else {
           this.error = 'code does not match';
