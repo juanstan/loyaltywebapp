@@ -21,7 +21,7 @@
       </ion-menu>
       <alert></alert>
       <ion-router-outlet id="main-content">
-        <button (click)="addToHomeScreen()" *ngIf="showButton">Add to Home Scree</button>
+        <ion-button color="light" (click)="addToHomeScreen()" *ngIf="showButton" >Add to Home Scree</ion-button>
       </ion-router-outlet>
     </ion-split-pane>
   </ion-app>

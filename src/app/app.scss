@@ -26,3 +26,9 @@
 .ion-color-black {
   --ion-color-base: var(--ion-color-black);
 }
+
+
+ion-button {
+  z-index: 999;
+  position: relative;
+}
