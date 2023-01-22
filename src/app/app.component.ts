@@ -41,7 +41,7 @@ export class AppComponent implements OnInit {
   loggedIn$ = new BehaviorSubject<boolean>(false);
   dark = false;
   deferredPrompt: any;
-  showButton = false;
+  showAlertInstall= true;
 
   constructor(
     private menu: MenuController,
@@ -83,11 +83,14 @@ export class AppComponent implements OnInit {
                 console.log('User dismissed the A2HS prompt');
               }
               this.deferredPrompt = null;
+              this.showAlertInstall = false;
             });
         }
       }],
     });
-    await alert.present();
+    if (this.showAlertInstall) {
+      await alert.present();
+    }
   }
 
   async ngOnInit() {
