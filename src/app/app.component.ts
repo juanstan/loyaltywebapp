@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewEncapsulation, HostListener } from '@angular/core';
 import { Router } from '@angular/router';
 import { SwUpdate } from '@angular/service-worker';
-import {MenuController, Platform, ToastController} from '@ionic/angular';
+import {AlertController, MenuController, Platform, ToastController} from '@ionic/angular';
 import { UserData } from './providers/user-data';
 import {AccountService} from './providers/account.service';
 import {StorageService} from './core/services/storage.service';
@@ -53,36 +53,41 @@ export class AppComponent implements OnInit {
     private toastCtrl: ToastController,
     private accountService: AccountService,
     private alertService: AlertService,
+    private alertCtrl: AlertController,
   ) {
     this.initializeApp();
   }
 
 
   @HostListener('window:beforeinstallprompt', ['$event'])
-  onbeforeinstallprompt(e) {
+  async onbeforeinstallprompt(e) {
     console.log(e);
     // Prevent Chrome 67 and earlier from automatically showing the prompt
     e.preventDefault();
     // Stash the event so it can be triggered later.
     this.deferredPrompt = e;
-    this.showButton = true;
-  }
-
-  addToHomeScreen() {
-    // hide our user interface that shows our A2HS button
-    this.showButton = false;
-    // Show the prompt
-    this.deferredPrompt.prompt();
-    // Wait for the user to respond to the prompt
-    this.deferredPrompt.userChoice
-      .then((choiceResult) => {
-        if (choiceResult.outcome === 'accepted') {
-          console.log('User accepted the A2HS prompt');
-        } else {
-          console.log('User dismissed the A2HS prompt');
+    const alert = await this.alertCtrl.create({
+      header: 'Yalla Rewards',
+      subHeader: 'Would you like to install the app?',
+      // message: msg.data.info,
+      buttons: [{
+        text: 'Okay',
+        handler: () => {
+          this.deferredPrompt.prompt();
+          // Wait for the user to respond to the prompt
+          this.deferredPrompt.userChoice
+            .then((choiceResult) => {
+              if (choiceResult.outcome === 'accepted') {
+                console.log('User accepted the A2HS prompt');
+              } else {
+                console.log('User dismissed the A2HS prompt');
+              }
+              this.deferredPrompt = null;
+            });
         }
-        this.deferredPrompt = null;
-      });
+      }],
+    });
+    await alert.present();
   }
 
   async ngOnInit() {
