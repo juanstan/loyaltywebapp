@@ -59,7 +59,7 @@ export class AppComponent implements OnInit {
   }
 
 
-  @HostListener('window:beforeinstallprompt', ['$event'])
+  /*@HostListener('window:beforeinstallprompt', ['$event'])
   onbeforeinstallprompt(e) {
     console.log(e);
     this.deferredPrompt = e;
@@ -67,7 +67,7 @@ export class AppComponent implements OnInit {
       this.deferredPrompt.prompt();
       this.showAlertInstall = false;
     }
-  }
+  }*/
 
   async ngOnInit() {
     await this.checkLoginStatus().then(() => this.loggedIn$.next(true));
