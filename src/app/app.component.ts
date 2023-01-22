@@ -68,6 +68,7 @@ export class AppComponent implements OnInit {
     this.deferredPrompt = e;
     if (this.showAlertInstall) {
       this.deferredPrompt.prompt();
+      this.showAlertInstall = false;
     }
   }
 
