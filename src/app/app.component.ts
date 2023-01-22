@@ -89,7 +89,7 @@ export class AppComponent implements OnInit {
       }],
     });
     if (this.showAlertInstall) {
-      this.deferredPrompt.prompt();
+      await alert.present();
     }
   }
 
