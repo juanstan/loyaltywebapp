@@ -63,7 +63,7 @@ export class SignupComponent implements OnInit {
       city: ['', Validators.required],
       date_of_birth: ['', Validators.required],
       password_confirmation: ['', Validators.required],
-      password: ['', [Validators.required, Validators.minLength(6)]]
+      password: ['', [Validators.required, Validators.pattern('^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%*_?&])[A-Za-z\\d@$!%*_?&]{8,}$')]]
     },
     {
       validator: FormControlValidators.match(

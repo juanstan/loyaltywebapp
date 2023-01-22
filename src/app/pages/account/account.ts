@@ -53,7 +53,7 @@ export class AccountPage implements OnInit {
         city: ['' + this.accountService.userValue.city_id, Validators.required],
         date_of_birth: [this.accountService.userValue.date_of_birth, Validators.required],
         password_confirmation: ['', Validators.required],
-        password: ['', [Validators.required, Validators.pattern('^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%*?&])[A-Za-z\\d@$!%*?&]{8,}$')]]
+        password: ['', [Validators.required, Validators.pattern('^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%*_?&])[A-Za-z\\d@$!%*_?&]{8,}$')]]
       },
       {
         validator: FormControlValidators.match(

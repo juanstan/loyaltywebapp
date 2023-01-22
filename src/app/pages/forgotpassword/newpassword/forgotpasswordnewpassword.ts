@@ -36,7 +36,7 @@ export class ForgotPasswordNewPasswordPage  implements OnInit {
     this.error = '';
     this.form = this.formBuilder.group({
         // eslint-disable-next-line max-len
-        newpassword: ['', [Validators.required, Validators.pattern('^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%*?&])[A-Za-z\\d@$!%*?&]{8,}$')]],
+        newpassword: ['', [Validators.required, Validators.pattern('^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%_*?&])[A-Za-z\\d@$!%_*?&]{8,}$')]],
         newpasswordrepeat: ['', Validators.required],
     },
   {

@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation, HostListener } from '@angular/core';
 import { Router } from '@angular/router';
 import { SwUpdate } from '@angular/service-worker';
 import {MenuController, Platform, ToastController} from '@ionic/angular';
@@ -7,6 +7,7 @@ import {AccountService} from './providers/account.service';
 import {StorageService} from './core/services/storage.service';
 import * as moment from 'moment';
 import {BehaviorSubject} from 'rxjs/internal/BehaviorSubject';
+import {AlertService} from './shared/services/alert.service';
 
 @Component({
   selector: 'app-root',
@@ -39,6 +40,8 @@ export class AppComponent implements OnInit {
   ];
   loggedIn$ = new BehaviorSubject<boolean>(false);
   dark = false;
+  deferredPrompt: any;
+  showButton = false;
 
   constructor(
     private menu: MenuController,
@@ -48,9 +51,38 @@ export class AppComponent implements OnInit {
     private userData: UserData,
     private swUpdate: SwUpdate,
     private toastCtrl: ToastController,
-    private accountService: AccountService
+    private accountService: AccountService,
+    private alertService: AlertService,
   ) {
     this.initializeApp();
+  }
+
+
+  @HostListener('window:beforeinstallprompt', ['$event'])
+  onbeforeinstallprompt(e) {
+    console.log(e);
+    // Prevent Chrome 67 and earlier from automatically showing the prompt
+    e.preventDefault();
+    // Stash the event so it can be triggered later.
+    this.deferredPrompt = e;
+    this.showButton = true;
+  }
+
+  addToHomeScreen() {
+    // hide our user interface that shows our A2HS button
+    this.showButton = false;
+    // Show the prompt
+    this.deferredPrompt.prompt();
+    // Wait for the user to respond to the prompt
+    this.deferredPrompt.userChoice
+      .then((choiceResult) => {
+        if (choiceResult.outcome === 'accepted') {
+          console.log('User accepted the A2HS prompt');
+        } else {
+          console.log('User dismissed the A2HS prompt');
+        }
+        this.deferredPrompt = null;
+      });
   }
 
   async ngOnInit() {
@@ -63,6 +95,10 @@ export class AppComponent implements OnInit {
       await this.storageService.init();
       await this.accountService.init();
     });
+  }
+
+  showInstallPromotion() {
+    this.alertService.error('test');
   }
 
   async checkLoginStatus() {

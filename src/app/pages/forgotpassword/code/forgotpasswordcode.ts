@@ -52,7 +52,7 @@ export class ForgotPasswordCodePage  implements OnInit {
         if (response.status==='success'){
           this.router.navigate(['/forgotpassword/newpassword', {code: response.code}]);
         } else {
-          this.error = 'code does not match';
+          this.error = 'Wrong code';
           this.loading = false;
         }
       }, () => this.loading = false);
