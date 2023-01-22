@@ -59,15 +59,39 @@ export class AppComponent implements OnInit {
   }
 
 
-  /*@HostListener('window:beforeinstallprompt', ['$event'])
-  onbeforeinstallprompt(e) {
+  @HostListener('window:beforeinstallprompt', ['$event'])
+  async onbeforeinstallprompt(e) {
     console.log(e);
+    // Prevent Chrome 67 and earlier from automatically showing the prompt
+    e.preventDefault();
+    // Stash the event so it can be triggered later.
     this.deferredPrompt = e;
+    const alert = await this.alertCtrl.create({
+      header: 'Yalla Rewards',
+      subHeader: 'Would you like to install the app?',
+      // message: msg.data.info,
+      buttons: [{
+        text: 'Okay',
+        handler: () => {
+          this.deferredPrompt.prompt();
+          // Wait for the user to respond to the prompt
+          this.deferredPrompt.userChoice
+            .then((choiceResult) => {
+              if (choiceResult.outcome === 'accepted') {
+                console.log('User accepted the A2HS prompt');
+              } else {
+                console.log('User dismissed the A2HS prompt');
+              }
+              this.deferredPrompt = null;
+              this.showAlertInstall = false;
+            });
+        }
+      }],
+    });
     if (this.showAlertInstall) {
       this.deferredPrompt.prompt();
-      this.showAlertInstall = false;
     }
-  }*/
+  }
 
   async ngOnInit() {
     await this.checkLoginStatus().then(() => this.loggedIn$.next(true));
