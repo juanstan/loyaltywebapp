@@ -110,7 +110,8 @@
             <ion-card-content class="transparent">
               <div class="header-website color-site">
                 <span>
-                  <ion-icon src="assets/icon/purchase-icon.svg" class="icon greeen bespoke-icon"></ion-icon>
+                  <ion-icon *ngIf="!website.business?.logo" src="assets/icon/purchase-icon.svg" class="icon greeen bespoke-icon"></ion-icon>
+                  <img *ngIf="website.business?.logo" src="https://loyalty.bondly.io/{{website.business?.logo}}" class="img-brand" />
                 </span>
                 <span  class="website color-site">{{website.name}}</span>
               </div>
