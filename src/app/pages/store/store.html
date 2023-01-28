@@ -34,7 +34,8 @@
             <ion-accordion value="first">
               <ion-item slot="header" color="light">
                 <span>
-                  <ion-icon src="assets/icon/purchase-icon.svg" class="icon greeen bespoke-icon"></ion-icon>
+                  <ion-icon *ngIf="!business.logo" src="assets/icon/purchase-icon.svg" class="icon greeen bespoke-icon"></ion-icon>
+                  <img *ngIf="business.logo" src="https://loyalty.bondly.io/{{business.logo}}" class="img-brand" />
                 </span>
                 <div class="header-history">
                   {{business.name}}
