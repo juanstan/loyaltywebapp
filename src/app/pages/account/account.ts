@@ -51,7 +51,7 @@ export class AccountPage implements OnInit {
         country: ['' + this.accountService.userValue.country_id, Validators.required],
         region: ['' + this.accountService.userValue.region_id, Validators.required],
         city: ['' + this.accountService.userValue.city_id, Validators.required],
-        date_of_birth: [this.accountService.userValue.date_of_birth, Validators.required],
+        date_of_birth: [(new Date(this.accountService.userValue.date_of_birth)).toISOString(), Validators.required],
         password_confirmation: ['', Validators.required],
         password: ['', [Validators.required, Validators.pattern('^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%*_?&])[A-Za-z\\d@$!%*_?&]{8,}$')]]
       },
