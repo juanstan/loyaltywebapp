@@ -137,9 +137,7 @@ ion-card-content{
     .website{
       font-weight: bolder;
       font-size: 16px;
-      position: absolute;
       top: 23px;
-      padding-left: 16px;
       color: black;
     }
     ion-icon{
@@ -166,4 +164,8 @@ ion-button {
 .img-brand{
   border-radius: 35px;
   width: 55px;
+}
+
+.txt-center {
+  text-align: center;
 }
