@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 import {StoreService} from '../../providers/store.service';
 import {Store} from '../../model/store';
 import {Observable} from 'rxjs/internal/Observable';
-import {first, map} from 'rxjs/operators';
+import {first, map, tap} from 'rxjs/operators';
 import * as _ from 'lodash';
 
 
@@ -26,8 +26,12 @@ export class StorePage implements OnInit {
 
   ngOnInit() {
     this.location = 'stores';
-    this.stores$ = this.storeService.requestStoresBusinessByProgram();
-    this.websites$ = this.storeService.requestWebsitesByProgram();
+    this.stores$ = this.storeService.requestStoresBusinessByProgram().pipe(
+      map(stores => stores.sort((a, b) => a.name < b.name ? -1 : 1))
+    );
+    this.websites$ = this.storeService.requestWebsitesByProgram().pipe(
+      tap(websites => console.log(websites.sort((a, b) => a.name < b.name ? -1 : 1)))
+    );
     this.storeService.requestStoresByProgram().pipe(
       first(),
       map(data => {
