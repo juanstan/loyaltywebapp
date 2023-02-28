@@ -110,7 +110,7 @@ export class AppComponent implements OnInit {
     const isInStandaloneMode = () => ('standalone' in window.navigator) && (window.navigator.standalone);
     // Checks if should display install popup notification:
     if (isIos() && !isInStandaloneMode()) {
-      await this.alertCtrl.create({
+      const alert = await this.alertCtrl.create({
         header: 'Yalla Rewards',
         subHeader: '<b> Get the App</b>',
         message: 'To save the app on your phone press the "Share" button and select "Add to Home Screen',
@@ -118,6 +118,7 @@ export class AppComponent implements OnInit {
           text: 'Okay'
         }],
       });
+      await alert.present();
     }
   }
 
