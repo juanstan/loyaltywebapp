@@ -111,8 +111,7 @@ export class AppComponent implements OnInit {
     // Checks if should display install popup notification:
     if (isIos() && !isInStandaloneMode()) {
       const alert = await this.alertCtrl.create({
-        header: 'Yalla Rewards',
-        subHeader: '<b> Get the App</b>',
+        header: 'Get the App',
         message: 'To save the app on your phone press the "Share" button and select "Add to Home Screen',
         buttons: [{
           text: 'Okay'
