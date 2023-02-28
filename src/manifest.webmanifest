@@ -9,33 +9,33 @@
   "gcm_sender_id": "103953800507",
   "icons": [
     {
-      "src": "assets/icons/yalla-logo.jpg",
+      "src": "assets/icons/yalla-logo.png",
       "sizes": "72x72",
-      "type": "image/jpg",
+      "type": "image/png",
       "purpose": "maskable any"
     },
     {
-      "src": "assets/icons/yalla-logo.jpg",
+      "src": "assets/icons/yalla-logo.png",
       "sizes": "96x96",
-      "type": "image/jpg",
+      "type": "image/png",
       "purpose": "maskable any"
     },
     {
-      "src": "assets/icons/yalla-logo.jpg",
+      "src": "assets/icons/yalla-logo.png",
       "sizes": "128x128",
-      "type": "image/jpg",
+      "type": "image/png",
       "purpose": "maskable any"
     },
     {
-      "src": "assets/icons/yalla-logo.jpg",
+      "src": "assets/icons/yalla-logo.png",
       "sizes": "144x144",
-      "type": "image/jpg",
+      "type": "image/png",
       "purpose": "maskable any"
     },
     {
-      "src": "assets/icons/yalla-logo.jpg",
+      "src": "assets/icons/yalla-logo.png",
       "sizes": "152x152",
-      "type": "image/jpg",
+      "type": "image/png",
       "purpose": "maskable any"
     },
     {

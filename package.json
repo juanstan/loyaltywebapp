@@ -57,6 +57,7 @@
     "moment": "^2.29.3",
     "ngx-bootstrap": "^8.0.0",
     "phonegap-plugin-barcodescanner": "^8.1.0",
+    "pwacompat": "^2.0.17",
     "rxjs": "~6.6.0",
     "sw-toolbox": "3.6.0",
     "swiper": "^7.2.0",

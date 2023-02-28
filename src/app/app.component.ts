@@ -95,8 +95,32 @@ export class AppComponent implements OnInit {
 
   async ngOnInit() {
     await this.checkLoginStatus().then(() => this.loggedIn$.next(true));
+    await this.checkIos();
 
   }
+
+  async checkIos() {
+    // Detects if device is on iOS
+    const isIos = () => {
+      const userAgent = window.navigator.userAgent.toLowerCase();
+      return /iphone|ipad|ipod/.test( userAgent );
+    };
+    // Detects if device is in standalone mode
+    // @ts-ignore
+    const isInStandaloneMode = () => ('standalone' in window.navigator) && (window.navigator.standalone);
+    // Checks if should display install popup notification:
+    if (isIos() && !isInStandaloneMode()) {
+      await this.alertCtrl.create({
+        header: 'Yalla Rewards',
+        subHeader: '<b> Get the App</b>',
+        message: 'To save the app on your phone press the "Share" button and select "Add to Home Screen',
+        buttons: [{
+          text: 'Okay'
+        }],
+      });
+    }
+  }
+
 
   initializeApp() {
     this.platform.ready().then(async () => {
