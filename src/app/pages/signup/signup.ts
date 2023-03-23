@@ -34,6 +34,7 @@ export class SignupComponent implements OnInit {
   selectFirstCountry = true;
   defaultCountryiso = 'ae';
   userexists: boolean;
+  errorMessage: string;
   // onlyCountries = ['ae', 'kw', 'qa', 'bh', 'om'];
 
   constructor(
@@ -49,6 +50,7 @@ export class SignupComponent implements OnInit {
 
   ngOnInit() {
     this.submitted = false;
+    this.errorMessage = '';
     this.form = this.formBuilder.group({
       first_name: ['', Validators.required],
       last_name: ['', Validators.required],
@@ -98,6 +100,7 @@ export class SignupComponent implements OnInit {
           if (data.status === 'error') {
             this.userexists = true;
             this.loading = false;
+            this.errorMessage = data.msg;
             return;
           }
           this.alertService.success('Registration successful', { keepAfterRouteChange: true });

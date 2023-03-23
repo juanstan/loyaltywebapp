@@ -190,7 +190,7 @@
         <div>Password has to be the same in both fields</div>
       </div>
       <div *ngIf="submitted && userexists" class="invalid-feedback">
-        <div>This email is already registered</div>
+        <div>{{errorMessage}}</div>
       </div>
     </div>
 
