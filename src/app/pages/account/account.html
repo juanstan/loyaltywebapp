@@ -84,6 +84,7 @@
       <ion-item lines="none">
         <ion-label color="light" position="stacked">Country</ion-label>
         <ion-select
+          value="{{ f.country.value}}"
           okText="Okay"
           cancelText="Dismiss"
           formControlName="country"
@@ -96,12 +97,12 @@
       </ion-item>
       <ion-item lines="none">
         <ion-label color="light" position="stacked">Region</ion-label>
-        <ion-input type="text" readonly formControlName="state" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.state.errors }" class="ion-text-start">
+        <ion-input type="text" formControlName="state" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.state.errors }" class="ion-text-start">
         </ion-input>
       </ion-item>
       <ion-item lines="none">
         <ion-label color="light" position="stacked">City</ion-label>
-        <ion-input type="text" readonly formControlName="city" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.city.errors }" class="ion-text-start">
+        <ion-input type="text" formControlName="city" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.city.errors }" class="ion-text-start">
         </ion-input>
       </ion-item>
       <ion-item lines="none">

@@ -37,9 +37,9 @@ export class AccountPage implements OnInit {
         email: [this.accountService.userValue.email, Validators.required],
         gender: [this.accountService.userValue.gender, Validators.required],
         nationality: [this.accountService.userValue.nationality, Validators.required],
-        country: ['' + this.accountService.userValue.country, Validators.required],
-        state: ['' + this.accountService.userValue.state, Validators.required],
-        city: ['' + this.accountService.userValue.city, Validators.required],
+        country: [this.accountService.userValue.country, Validators.required],
+        state: [this.accountService.userValue.state, Validators.required],
+        city: [this.accountService.userValue.city, Validators.required],
         date_of_birth: [(new Date(this.accountService.userValue.date_of_birth)).toISOString(), Validators.required],
         password_confirmation: ['', Validators.required],
         // eslint-disable-next-line max-len
@@ -58,7 +58,7 @@ export class AccountPage implements OnInit {
 
   ionViewDidEnter() {
     // @ts-ignore
-    setTimeout(() => this.form.patchValue({country: ['' + this.accountService.userValue.country_id]}), 100);
+    // setTimeout(() => this.form.patchValue({country: ['' + this.accountService.userValue.country_id]}), 100);
   }
 
   // convenience getter for easy access to form fields
