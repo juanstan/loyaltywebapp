@@ -78,7 +78,7 @@
           formControlName="nationality"
           class="form-control"
           [ngClass]="{ 'is-invalid': submitted && f.nationality.errors }">
-          <ion-select-option value="{{country.name}}" *ngFor="let country of countries$ | async">{{country.name}}</ion-select-option>
+          <ion-select-option value="{{country.name}}" *ngFor="let country of countries">{{country.name}}</ion-select-option>
         </ion-select>
       </ion-item>
       <ion-item lines="none">
@@ -88,39 +88,21 @@
           cancelText="Dismiss"
           formControlName="country"
           class="form-control"
-          (ionChange)="loadRegion($event)"
           [ngClass]="{ 'is-invalid': submitted && f.country.errors }">
-          <ion-select-option value="{{country.id}}" *ngFor="let country of countries$ | async">
+          <ion-select-option value="{{country.name}}" *ngFor="let country of countries">
             {{country.name}}
           </ion-select-option>
         </ion-select>
       </ion-item>
       <ion-item lines="none">
         <ion-label color="light" position="stacked">Region</ion-label>
-        <ion-select
-          okText="Okay"
-          cancelText="Dismiss"
-          formControlName="region"
-          class="form-control"
-          (ionChange)="loadCity($event)"
-          [ngClass]="{ 'is-invalid': submitted && f.region.errors }">
-          <ion-select-option value="{{region.id}}" *ngFor="let region of regions$ | async">
-            {{region.name}}
-          </ion-select-option>
-        </ion-select>
+        <ion-input type="text" readonly formControlName="state" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.state.errors }" class="ion-text-start">
+        </ion-input>
       </ion-item>
       <ion-item lines="none">
         <ion-label color="light" position="stacked">City</ion-label>
-        <ion-select
-          okText="Okay"
-          cancelText="Dismiss"
-          formControlName="city"
-          class="form-control"
-          [ngClass]="{ 'is-invalid': submitted && f.city.errors }">
-          <ion-select-option value="{{city.id}}" *ngFor="let city of cities$ | async">
-            {{city.name}}
-          </ion-select-option>
-        </ion-select>
+        <ion-input type="text" readonly formControlName="city" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.city.errors }" class="ion-text-start">
+        </ion-input>
       </ion-item>
       <ion-item lines="none">
         <ion-label color="light" position="stacked">Password</ion-label>

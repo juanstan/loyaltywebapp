@@ -1,19 +1,13 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import {delay, first, tap} from 'rxjs/operators';
+import {first} from 'rxjs/operators';
 import {AccountService} from '../../providers/account.service';
 import {AlertService} from '../../shared/services/alert.service';
 import * as moment from 'moment';
-import {IonDatetime} from '@ionic/angular';
-import {CountryService} from '../../providers/country.service';
-import {Observable} from 'rxjs/internal/Observable';
 import {Country} from '../../model/country';
-import {RegionService} from '../../providers/region.service';
-import {Region} from '../../model/region';
-import {CityService} from '../../providers/city.service';
-import {City} from '../../model/city';
 import {FormControlValidators} from '../../shared/utils/form-validators';
+import {countries} from '../../shared/utils/country-data-store';
 
 @Component({
   templateUrl: 'account.html',
@@ -25,9 +19,7 @@ export class AccountPage implements OnInit {
   submitted: boolean;
   date_of_birth: Date;
   todayDate: string;
-  countries$: Observable<Country[]>;
-  regions$: Observable<Region[]>;
-  cities$: Observable<City[]>;
+  countries: Country[];
 
   constructor(
     private formBuilder: FormBuilder,
@@ -35,9 +27,6 @@ export class AccountPage implements OnInit {
     private router: Router,
     public accountService: AccountService,
     private alertService: AlertService,
-    private countryService: CountryService,
-    private regionService: RegionService,
-    private cityService: CityService
   ) { }
 
   ngOnInit() {
@@ -48,11 +37,12 @@ export class AccountPage implements OnInit {
         email: [this.accountService.userValue.email, Validators.required],
         gender: [this.accountService.userValue.gender, Validators.required],
         nationality: [this.accountService.userValue.nationality, Validators.required],
-        country: ['' + this.accountService.userValue.country_id, Validators.required],
-        region: ['' + this.accountService.userValue.region_id, Validators.required],
-        city: ['' + this.accountService.userValue.city_id, Validators.required],
+        country: ['' + this.accountService.userValue.country, Validators.required],
+        state: ['' + this.accountService.userValue.state, Validators.required],
+        city: ['' + this.accountService.userValue.city, Validators.required],
         date_of_birth: [(new Date(this.accountService.userValue.date_of_birth)).toISOString(), Validators.required],
         password_confirmation: ['', Validators.required],
+        // eslint-disable-next-line max-len
         password: ['', [Validators.required, Validators.pattern('^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%*_?&])[A-Za-z\\d@$!%*_?&]{8,}$')]]
       },
       {
@@ -92,7 +82,7 @@ export class AccountPage implements OnInit {
     this.accountService.update(this.form.value)
       .pipe(first())
       .subscribe({
-        next: async() => {
+        next: async () => {
           await this.accountService.loadAllData().subscribe(() => {
             this.loading = false;
           });
@@ -120,28 +110,8 @@ export class AccountPage implements OnInit {
   }
 
   getCountries() {
-    this.countries$ = this.countryService.getCountriesReq().pipe(tap(val => {
-      this.form.patchValue({country: ['' + this.accountService.userValue.country_id]});
-      this.form.patchValue({nationality: ['' + this.accountService.userValue.nationality]});
-    }));
-  }
+    this.countries = countries;
 
-  loadRegion(event) {
-    const countryID = event?.detail?.value;
-    if (countryID) {
-      this.regions$ = this.regionService.getRegionsReq(countryID).pipe(tap(val => {
-        this.form.patchValue({region: ['' + this.accountService.userValue.region_id]});
-      }));
-    }
-  }
-
-  loadCity(event) {
-    const regionID = event?.detail?.value;
-    if (regionID) {
-      this.cities$ = this.cityService.getCitysReq(regionID).pipe(tap(val => {
-        this.form.patchValue({city: ['' + this.accountService.userValue.city_id]});
-      }));
-    }
   }
 
 

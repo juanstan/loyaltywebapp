@@ -1,11 +1,10 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { first } from 'rxjs/operators';
 import {AccountService} from '../../providers/account.service';
 import {AlertService} from '../../shared/services/alert.service';
 import * as moment from 'moment';
-import {IonDatetime} from '@ionic/angular';
 import {CountryService} from '../../providers/country.service';
 import {Observable} from 'rxjs/internal/Observable';
 import {Country} from '../../model/country';
@@ -15,6 +14,7 @@ import {CityService} from '../../providers/city.service';
 import {City} from '../../model/city';
 import {FormControlValidators} from '../../shared/utils/form-validators';
 import { IonIntlTelInputValidators } from 'ion-intl-tel-input';
+import {countries} from '../../shared/utils/country-data-store';
 
 @Component({
   templateUrl: 'signup.html',
@@ -26,16 +26,15 @@ export class SignupComponent implements OnInit {
   submitted: boolean;
   date_of_birth: Date;
   todayDate: string;
-  countries$: Observable<Country[]>;
-  regions$: Observable<Region[]>;
-  cities$: Observable<City[]>;
+  countries: Country[];
+  regions: string;
+  cities: string;
 
   preferredCountries = ['ae', 'kw', 'qa', 'bh', 'om'];
   selectFirstCountry = true;
   defaultCountryiso = 'ae';
   userexists: boolean;
   errorMessage: string;
-  // onlyCountries = ['ae', 'kw', 'qa', 'bh', 'om'];
 
   constructor(
     private formBuilder: FormBuilder,
@@ -129,10 +128,10 @@ export class SignupComponent implements OnInit {
   }
 
   getCountries() {
-    this.countries$ = this.countryService.getCountriesReq();
+    this.countries = countries;
   }
 
-  loadRegion(event) {
+  /*loadRegion(event) {
     const countryID = event?.detail?.value;
     if (countryID) {
       this.regions$ = this.regionService.getRegionsReq(countryID);
@@ -145,7 +144,7 @@ export class SignupComponent implements OnInit {
       this.cities$ = this.cityService.getCitysReq(cityID);
     }
   }
-
+*/
 
   datePickerValueChange(event) {
     if (event?.target && new Date(event.target.valueAsDate) > this.getToday()) {

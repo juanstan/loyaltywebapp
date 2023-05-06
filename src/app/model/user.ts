@@ -10,9 +10,9 @@ export class User {
   timezone: string | undefined;
   language: string | undefined;
   nationality: string | undefined;
-  country_id: number | undefined;
-  region_id: number | undefined;
-  city_id: number | undefined;
+  country: string | undefined;
+  state: string | undefined;
+  city: string | undefined;
   phone: string | undefined;
   date_of_birth: string | undefined;
   locale: Date | undefined;
