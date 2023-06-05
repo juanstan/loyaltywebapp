@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {AfterViewInit, Component, ElementRef, OnInit, Renderer2, ViewChild} from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { first } from 'rxjs/operators';
@@ -15,12 +15,15 @@ import {City} from '../../model/city';
 import {FormControlValidators} from '../../shared/utils/form-validators';
 import { IonIntlTelInputValidators } from 'ion-intl-tel-input';
 import {countries} from '../../shared/utils/country-data-store';
+import {timer} from 'rxjs';
 
 @Component({
   templateUrl: 'signup.html',
   styleUrls: ['./signup.scss'],
 })
-export class SignupComponent implements OnInit {
+export class SignupComponent implements OnInit, AfterViewInit {
+  @ViewChild('pickupDate', { read: ElementRef, static: false }) pickupDate?: ElementRef;
+
   form: FormGroup;
   loading = false;
   submitted: boolean;
@@ -29,6 +32,7 @@ export class SignupComponent implements OnInit {
   countries: Country[];
   regions: string;
   cities: string;
+  day: number;
 
   preferredCountries = ['ae', 'kw', 'qa', 'bh', 'om'];
   selectFirstCountry = true;
@@ -36,12 +40,16 @@ export class SignupComponent implements OnInit {
   userexists: boolean;
   errorMessage: string;
 
+  yearValues = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30];
+
+
   constructor(
     private formBuilder: FormBuilder,
     private route: ActivatedRoute,
     private router: Router,
     private accountService: AccountService,
     private alertService: AlertService,
+    private renderer: Renderer2,
     private countryService: CountryService,
     private regionService: RegionService,
     private cityService: CityService
@@ -74,6 +82,7 @@ export class SignupComponent implements OnInit {
     });
 
     this.getCountries();
+
   }
 
   // convenience getter for easy access to form fields
@@ -120,10 +129,21 @@ export class SignupComponent implements OnInit {
     return new Date().toISOString();
   }
 
+  getDataDay(data){
+    this.day = data.detail.value?.split('-')[0]?.slice(-2);
+  }
 
   getData(data) {
+    console.log(this.day, data.detail.value);
+    const year = data.detail.value?.split('-')[0];
+    const month = data.detail.value?.split('-')[1];
+    const date = new Date(`${year}-${month}-${this.day}`);
+
+
+    console.log(date);
+    debugger;
     this.form.patchValue({
-      date_of_birth: data.detail.value,
+      date_of_birth: date,
     });
   }
 
@@ -174,4 +194,15 @@ export class SignupComponent implements OnInit {
           });
         }
   }
+
+
+  ngAfterViewInit() {
+    timer(200).subscribe(() => { //async issues I couldn't resolve
+      const shadow: DocumentFragment = this.pickupDate?.nativeElement.shadowRoot;
+      const shadowSection = shadow.querySelector('ion-picker-column-internal');
+
+      this.renderer.setAttribute(shadowSection, 'part', 'day');
+    });
+  }
+
 }

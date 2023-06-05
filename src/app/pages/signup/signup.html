@@ -46,14 +46,26 @@
         ></ion-input>
         <ion-popover trigger="date" size="cover">
           <ng-template>
-            <ion-datetime
-              presentation="date"
-              locale="en-uk"
-              formControlName="date_of_birth"
-              [max]=getTodayUTC()
-              show-default-buttons="true"
-              (ionChange)="getData($event)"
-            ></ion-datetime>
+            <div class="hacking-datetime">
+              <ion-datetime
+                #pickupDate
+                presentation="year"
+                locale="en-uk"
+                [yearValues]="yearValues"
+                formControlName="day"
+                [max]=getTodayUTC()
+                show-default-buttons="false"
+                (ionChange)="getDataDay($event)"
+              ></ion-datetime>
+              <ion-datetime
+                presentation="month-year"
+                locale="en-uk"
+                formControlName="date_of_birth"
+                [max]=getTodayUTC()
+                show-default-buttons="true"
+                (ionChange)="getData($event)"
+              ></ion-datetime>
+            </div>
           </ng-template>
         </ion-popover>
       </ion-item>
