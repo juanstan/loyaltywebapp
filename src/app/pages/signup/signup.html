@@ -47,22 +47,24 @@
         <ion-popover trigger="date" size="cover">
           <ng-template>
             <div class="hacking-datetime">
-              <ion-datetime
+              <!--<ion-datetime
                 #pickupDate
                 presentation="year"
                 locale="en-uk"
-                [yearValues]="yearValues"
+                [yearValues]="dayValues"
                 formControlName="day"
-                [max]=getTodayUTC()
                 show-default-buttons="false"
                 (ionChange)="getDataDay($event)"
-              ></ion-datetime>
+              ></ion-datetime>-->
               <ion-datetime
-                presentation="month-year"
+                preferWheel="true"
+                presentation="date"
                 locale="en-uk"
+                color="specialblue"
                 formControlName="date_of_birth"
                 [max]=getTodayUTC()
                 show-default-buttons="true"
+                [(ngModel)]="myDate"
                 (ionChange)="getData($event)"
               ></ion-datetime>
             </div>
@@ -80,7 +82,6 @@
           [ngClass]="{ 'is-invalid': submitted && f.gender.errors }">
           <ion-select-option value="male" >Male</ion-select-option>
           <ion-select-option value="female">Female</ion-select-option>
-          <ion-select-option value="other">Other</ion-select-option>
         </ion-select>
       </ion-item>
       <ion-item lines="none">
@@ -209,8 +210,15 @@
       </div>
     </div>
 
+    <div>
+      <ion-item>
+        <ion-checkbox (ionChange)="termsAndConditions($event)"></ion-checkbox>
+        <ion-label class="label-terms">I agree to the <a (click)=handleTermsAndConditions()>terms and conditions</a></ion-label>
+      </ion-item>
+    </div>
+
     <div class="form-btn-login">
-      <ion-button [disabled]="loading" size="small" color="light" (click)="onSubmit()">
+      <ion-button [disabled]="loading || this.btnDisable" size="small" color="light" (click)="onSubmit()">
         <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
         Register
       </ion-button>

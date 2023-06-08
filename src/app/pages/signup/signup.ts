@@ -16,12 +16,13 @@ import {FormControlValidators} from '../../shared/utils/form-validators';
 import { IonIntlTelInputValidators } from 'ion-intl-tel-input';
 import {countries} from '../../shared/utils/country-data-store';
 import {timer} from 'rxjs';
+import {AlertController} from '@ionic/angular';
 
 @Component({
   templateUrl: 'signup.html',
   styleUrls: ['./signup.scss'],
 })
-export class SignupComponent implements OnInit, AfterViewInit {
+export class SignupComponent implements OnInit {
   @ViewChild('pickupDate', { read: ElementRef, static: false }) pickupDate?: ElementRef;
 
   form: FormGroup;
@@ -39,8 +40,10 @@ export class SignupComponent implements OnInit, AfterViewInit {
   defaultCountryiso = 'ae';
   userexists: boolean;
   errorMessage: string;
+  btnDisable: boolean;
 
-  yearValues = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30];
+  // dayValues = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31];
+  myDate: string = new Date(new Date().getFullYear(), 0, 1).toISOString();
 
 
   constructor(
@@ -49,6 +52,7 @@ export class SignupComponent implements OnInit, AfterViewInit {
     private router: Router,
     private accountService: AccountService,
     private alertService: AlertService,
+    private alertCtrl: AlertController,
     private renderer: Renderer2,
     private countryService: CountryService,
     private regionService: RegionService,
@@ -57,6 +61,7 @@ export class SignupComponent implements OnInit, AfterViewInit {
 
   ngOnInit() {
     this.submitted = false;
+    this.btnDisable = true;
     this.errorMessage = '';
     this.form = this.formBuilder.group({
       first_name: ['', Validators.required],
@@ -134,14 +139,13 @@ export class SignupComponent implements OnInit, AfterViewInit {
   }
 
   getData(data) {
-    console.log(this.day, data.detail.value);
+
     const year = data.detail.value?.split('-')[0];
     const month = data.detail.value?.split('-')[1];
     const date = new Date(`${year}-${month}-${this.day}`);
 
+    this.myDate = date.toISOString();
 
-    console.log(date);
-    debugger;
     this.form.patchValue({
       date_of_birth: date,
     });
@@ -150,6 +154,17 @@ export class SignupComponent implements OnInit, AfterViewInit {
   getCountries() {
     this.countries = countries;
   }
+
+  injectClass() {
+    timer(1000).subscribe(() => { //async issues I couldn't resolve
+      const shadow: DocumentFragment = this.pickupDate?.nativeElement.shadowRoot;
+      const shadowSection = shadow.querySelector('ion-picker-column-internal');
+
+      this.renderer.setAttribute(shadowSection, 'part', 'day');
+    });
+  }
+
+
 
   /*loadRegion(event) {
     const countryID = event?.detail?.value;
@@ -195,14 +210,20 @@ export class SignupComponent implements OnInit, AfterViewInit {
         }
   }
 
-
-  ngAfterViewInit() {
-    timer(200).subscribe(() => { //async issues I couldn't resolve
-      const shadow: DocumentFragment = this.pickupDate?.nativeElement.shadowRoot;
-      const shadowSection = shadow.querySelector('ion-picker-column-internal');
-
-      this.renderer.setAttribute(shadowSection, 'part', 'day');
-    });
+  termsAndConditions(event) {
+    this.btnDisable = !event.detail.checked;
   }
+
+  async handleTermsAndConditions() {
+    const alert = await this.alertCtrl.create({
+      header: 'Terms & COnditions',
+      message: 'terms ..............',
+      buttons: [{
+        text: 'Okay'
+      }],
+    });
+    await alert.present();
+  }
+
 
 }
