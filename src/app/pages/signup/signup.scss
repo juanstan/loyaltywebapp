@@ -197,3 +197,16 @@ ion-checkbox::part(container) {
   color: white;
   padding-left: 10px;
 }
+
+::ng-deep .popupg.sc-ion-alert-md-h {
+  --max-width: 350px;
+  --min-height: 80%;
+}
+
+::ng-deep .popupg .alert-wrapper {
+  x-overflow-y: scroll;
+}
+
+::ng-deep .popupg .alert-message.sc-ion-alert-md {
+  max-height: 100%;
+}
