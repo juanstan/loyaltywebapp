@@ -218,9 +218,11 @@ export class SignupComponent implements OnInit {
     const alert = await this.alertCtrl.create({
       cssClass: 'popupg',
       header: 'Terms & Conditions',
-      message: 'YALLA REWARDS Programme (“YALLA REWARDS”) is operated by Al Boom Marine LLC for the Al Boom Marine group of Companies. The YALLA mobile application that can be available by scanning the QR code at any of the Al Boom Marine Retail stores or on website at  www.alboommarine.com By accessing and using the YALLA Rewards mobile application and / or the YALLA Website, you have agreed to all Terms.\n' +
+      message: '<p>YALLA REWARDS Programme (“YALLA REWARDS”) is operated by Al Boom Marine LLC for the Al Boom Marine group of Companies. The YALLA mobile application that can be available by scanning the QR code at any of the Al Boom Marine Retail stores or on website at  www.alboommarine.com By accessing and using the YALLA Rewards mobile application and / or the YALLA Website, you have agreed to all Terms.' +
         '\n' +
-        'DEFINITIONS\n' +
+        '</p>' +
+        '<b>DEFINITIONS</b>\n' +
+        '<br /><br />' +
         '\n' +
         '1. The following binding definitions shall apply: \n' +
         '\n' +
@@ -252,7 +254,9 @@ export class SignupComponent implements OnInit {
         '\n' +
         '“YALLA ID” means the barcode within the YALLA Rewards mobile application.\n' +
         '\n' +
-        'GENERAL\n' +
+        '<br /><br />' +
+        '<b>GENERAL</b>\n' +
+        '<br /><br />' +
         'Al Boom Marine LLC reserves the right to change, modify or amend any part of YALLA at any time. This right includes, but is not limited to, the Al Boom Marine LLC partner affiliation, rules for Earning and Redeeming points, rules for use of rewards, benefits, procedures, and specific features of promotional offers. Reasonable efforts will be made to ensure the latest version of is posted on the YALLA Rewards mobile application and / or YALLA Website. \n' +
         '\n' +
         'Other terms:\n' +
@@ -263,7 +267,9 @@ export class SignupComponent implements OnInit {
         'Any Replacement or Renewal of an existing card issued prior to the Campaign Offer will not be eligible for this campaign\n' +
         '\n' +
         '\n' +
-        'FAIR USE\n' +
+        '<br /><br />' +
+        '<b>FAIR USE</b>\n' +
+        '<br /><br />' +
         '\n' +
         'YALLA is to reward and benefit individual Members who transact with the Participating Brands for their individual transactions. For the avoidance of doubt, members are not eligible to earn Points for transactions that are not their own, whether using the YALLA Wallet or receipt scanning functionality.\n' +
         '\n' +
@@ -279,7 +285,9 @@ export class SignupComponent implements OnInit {
         '\n' +
         'ABM reserves the right to suspend, delete or otherwise modify any Member’s Account, or the entire YALLA programme at any time at its sole discretion, with or without prior notification. This may lead to a forfeiture of all outstanding points, promotions and benefits.\n' +
         '\n' +
-        'PRIVACY POLICY\n' +
+        '<br /><br />' +
+        '<b>PRIVACY POLICY</b>\n' +
+        '<br /><br />' +
         '\n' +
         'ABM shall endeavor to diligently protect a Member’s privacy. By using YALLA, it is assumed that you have read, understood, and agreed to ABM Privacy Policy.',
       buttons: [{
